@@ -2056,12 +2056,14 @@ kable(Table2, caption = "Table 2. Standardized Structural Regression Paths Predi
 ```
 
 Consistent with expectations, 
+
 * **More effectively using technology** reduced MEA ($\beta = -0.16$, $p < .001$) and MLA ($\beta = -0.22$, $p < .001$). 
 * **Higher Self-efficacy** students tended to have lower MEA ($\beta = -0.49$, $p < .001$) and MLA ($\beta = -0.45$, $p < .001$). 
 * **More Engagement** reduced MLA ($\beta = -0.09$, $p = .012$), and 
-* **gender* was significant. Male students tended to have lower MEA ($\beta = -0.14$, $p < .001$).
+* **gender** was significant. Male students tended to have lower MEA ($\beta = -0.14$, $p < .001$).
 
 Regarding teaching approaches, 
+
 * **student-centered strategies** significantly reduced MLA ($\beta = -1.87$, $p = .022$). 
 * **Teacher-centered strategies** showed a marginally positive association with MLA ($\beta = 1.54$, $p = .060$); however, confidence intervals included zero. Neither strategy significantly predicted MEA ($p > .10$).
 
@@ -3035,9 +3037,9 @@ To form the full polychoric correlation matrix, this exact process is repeated f
 
 |  | A |	B |	C |
 |:----|:----|:----|:-----|
-| A	| 1	| $\rho_{AB}$	| $\rho_{AC}$| 
-| B	| $\rho_{AB}$	| 1	| $\rho_{BC}$| 
-| C	| $\rho_{AC}$	| $\rho_{BC}$	| 1| 
+| **A**	| 1	| $\rho_{AB}$	| $\rho_{AC}$| 
+| **B**	| $\rho_{AB}$	| 1	| $\rho_{BC}$| 
+| **C**	| $\rho_{AC}$	| $\rho_{BC}$	| 1| 
 
 
 
@@ -3076,8 +3078,6 @@ $$
 * $\boldsymbol{\sigma}(\boldsymbol{\theta})$ contains the model-implied correlations and thresholds
 
 * $\mathbf{W}$ is the consistent asymptotic covariance matrix of $\mathbf{s}$
-
-
 
 
 **Introduction to the Estimator**
