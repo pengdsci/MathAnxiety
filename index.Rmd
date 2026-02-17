@@ -1,6 +1,6 @@
 ---
 title: "Mathematics Anxiety Survey Report"
-author: "Cheng Peng & Laura Pyatt"
+author: "Cheng Peng & Laura Pyott"
 date: "West Chester University"
 output:
   html_document: 
@@ -34,21 +34,17 @@ editor_options:
   content: "Table of Contents";
   font-weight: bold;
   font-size: 1.2em;
-  text-align: center;
   display: block;
   color: navy;
   margin-bottom: 10px;
 }
 
 
-div#TOC li {
-    list-style:none;
-    background-color:lightgray;
+div#TOC li {     /* table of content  */
+    list-style:upper-roman;
     background-image:none;
     background-repeat:none;
     background-position:0;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #780c0c;
 }
 
 h1.title {    /* level 1 header of title  */
@@ -208,7 +204,15 @@ if (!require("leaps")) {
   install.packages("leaps")
   library(leaps)
 }
-## library(leaps)
+if (!require("viridis")) {
+  install.packages("viridis")
+  library(viridis)
+}
+if (!require("RColorBrewer")) {
+  install.packages("RColorBrewer")
+  library(RColorBrewer)
+}
+## 
 knitr::opts_chunk$set(echo = TRUE,       # include code chunk in the output file
                       warning = FALSE,   # sometimes, you code may produce warning messages,
                                          # you can choose to include the warning messages in
@@ -225,6 +229,9 @@ knitr::opts_chunk$set(echo = TRUE,       # include code chunk in the output file
 # Introduction
 
 The subject of mathematics causes fear and difficulty for a wide range of students. We often hear students claim, "I don't like math", "I'm just not good at math", "I'm not a math person", or "I wasn't born with the math gene", etc. Although these claims are not perfect indicators of math anxiety, students who have these fixed mindsets will be more likely to experience math anxiety.
+
+> Roughly one-third to one-half of U.S. college students experience math anxiety at a level that can interfere with their learning and performance, with prevalence rising sharply to over 60% for students enrolled in developmental math courses. See Chang & Beilock (2016), Luttenberger (2018), and among others.
+
 
 While math anxiety can have a serious impact on academic performance, it does not mean a lack of mathematics ability. Prof. Laurent Schwartz experienced math anxiety in the 11th grade, but this did not prevent him from becoming a prominent mathematician. In fact, he won the Fields Model (the mathematician's Nobel Prize) in 1950. Effectively managing math anxiety requires a deep understanding of math anxiety.
 
@@ -272,9 +279,7 @@ Since lower mathematics achievement predicts higher subsequent math anxiety and 
 
 ## Participants
 
-The survey was approved by WCU's IRB. We invite all WCU students who take their first WCU mathematics and statistics class in the fall semesters of 2024 and the spring semester of 2025. Participation in the study are voluntary and responses remain anonymous. The data was collected in the spring and fall semesters of 2024 based on the protocols set by WCU's Institutional Research. Via Qualtrics, we sent an invitation email to all qualified students spring and fall mid-semester. A reminder email was sent at the end of the semester to non-responding students to boost the participation rate. A \$10 Amazon gift card was offered to survey completers and distributed through Qualtrics so anonymity is guaranteed.
-
-The study population in this study is defined as WCU students aged 18 years or older who took their first MAT class at WCU. The results in this study can be generalized to similar regional universities and those recently reclassified R2 institutions.
+The survey was approved by WCU’s IRB. We invited all WCU students who took their first WCU mathematics or statistics class in the fall semester of 2024 or the spring semester of 2025. Participation in the study was voluntary, and responses remained anonymous. Data were collected during the fall 2024 and spring 2025 semesters in accordance with protocols established by WCU’s Institutional Research. Via Qualtrics, we sent an invitation email to all eligible students at mid-semester in both semesters. A reminder email was sent near the end of each semester to students who had not yet responded, in order to increase participation. A $10 Amazon gift card was offered to participants who completed the survey; these were distributed through Qualtrics to ensure anonymity. The study population is defined as WCU students aged 18 years or older who were taking their first mathematics (MAT) course at WCU.
 
 ## Survey Instruments
 
@@ -332,6 +337,7 @@ Engage <- WorkingData[, c("ID",  "CR.1", "CR.2", "CR.3")]
 Resource <- WorkingData[, c("ID", "CR.9", "CR.10", "CR.11", "CR.12")]
 ```
 
+
 ## Missing Value Imputation
 
 To main this sample size, we use random imputation approach to fill in the missing values. Since all multi-item sub-scales were measured using a Likert scale, the scores follows a multinomial distribution. The empirical distribution will be used in the random imputation to main the probability distribution of the observed data. The following code imputes the missing values in all multi-item subscales.
@@ -352,6 +358,7 @@ Imputation = function(DataName){
    DataName
 }
 ```
+
 
 ```{r echo = FALSE, eval = TRUE}
 Comp.Anxiety = Imputation(Anxiety)
@@ -391,12 +398,12 @@ In addition, all questions regarding engagement and resource use were reverse-wo
 
 Two variables need to be regrouped in the following: course level and ethnicity.
 
--   **MathCourseLevel**
-    -   *Math.I*: MATQ30, MAT100, MAT101, MAT102,
-    -   *Math.II*: MAT193, MAT104, MAT112, MAT113, MAT115, MAT131
-    -   *Math.III*: MAT143, MAT145, MAT151, MAT161
-    -   *Math.IV*: MAT162-MAT480
-    -   *Stats*: MAT121, MAT125, STA200
+-   **Math Course Level**
+    -   *Math.I*: MATQ30, MAT100 (Math for Teacher I), MAT101 (Math for Teacher I), MAT102 (Math for Teacher II), 
+    -   *Math.II*: MAT103 (Intro Math), MAT104 (Intor Applied Math), MAT112 (Algebra and Functions with Support), MAT113 (Algebra and Functions), MAT115 (Algebra, Functions, and Trigonometry), MAT131 (Pre-calc)
+    -   *Math.III*: MAT143 (Brief Calc.), MAT145 (Calc. for Biology), MAT151 (Discrete Math), MAT161 (Calc. I)
+    -   *Math.IV*: MAT162-MAT480 (Math Course beyond Calc I)
+    -   *Stats*: MAT121 (stats I), MAT125 (Stats and Prob.), STA200 (Stats II)
     -   *Other*: All courses not listed above
 -   **Ethnicity**
     -   *White*
@@ -764,15 +771,15 @@ Repetitive.score = scores(Comp.Repetitive, "Repetitive")
 Engage.score = scores(Comp.Engage, "Engage")
 Resource.score = scores(Comp.Resource, "Resource")
 ##
-finalDat <- cbind(demographics, Anxiety.score, Anxiety.mea.score,
+finalDat <- na.omit(cbind(demographics, Anxiety.score, Anxiety.mea.score,
                   Anxiety.mla.score, SelfEfficacy.score, Technology.score,
                   Cooporative.score, Deductive.score, Demonstration.score,Inductive.score,
                   Integrative.score, LectureType.score, Repetitive.score,
-                  Engage.score, Resource.score)
+                  Engage.score, Resource.score))
 ```
 
 ```{r echo = FALSE, eval = FALSE}
-write.csv(finalDat, "C:\\Users\\75CPENG\\OneDrive - West Chester University of PA\\Desktop\\cpeng\\WCU-Teaching\\2025Fall\\MathAxiety\\completeAnxietyData.csv")
+#write.csv(finalDat, "C:\\Users\\75CPENG\\OneDrive - West Chester University of PA\\Desktop\\cpeng\\WCU-Teaching\\2025Fall\\MathAxiety\\completeAnxietyData.csv")
 ```
 
 # Some Graphical Exploration
@@ -784,9 +791,11 @@ We next explore the distributions of the created composite scores and perform so
 The following are distributions of four generated composite scores across all instruments. The purpose is to examine the behaviors of these composite scores, especially the doubly weighted composite score based on the principal component analysis.
 
 ```{r echo = FALSE}
-#final.anxiety.dat <- read.csv("https://pengdsci.github.io/MathAnxiety/completeAnxietyData.csv")
-final.anxiety.dat <- finalDat
+final.anxiety.dat <- na.omit(read.csv("https://pengdsci.github.io/MathAnxiety/completeAnxietyData.csv"))
+#final.anxiety.dat <- finalDat
 ```
+
+
 
 ```{r}
 plotly.fun <- function(in.data){
@@ -811,7 +820,7 @@ plotly.fun <- function(in.data){
        add_trace(x = ~in.cfa$x, y = ~in.cfa$y, 
                  name = 'cfa', 
                  fill = 'tozeroy')  %>% 
-       layout(xaxis = list(title = 'scores'),
+       layout(xaxis = list(title = 'Aggregated Scores'),
               yaxis = list(title = 'Density'),
               #title = dat.name,
                margin = list(
@@ -840,6 +849,8 @@ in.engage = final.anxiety.dat[, c(  "Engage.avg", "Engage.pca1", "Engage.wt.pca"
 in.resource = final.anxiety.dat[, c( "Resource.avg", "Resource.pca1", "Resource.wt.pca", "Resource.cfa")]
 ```
 
+
+
 ```{r fig.align='center', fig.width=8, fig.height=3}
 p.mea <- plotly.fun(in.anxiety.mea)
 p.mla <- plotly.fun(in.anxiety.mla)
@@ -847,14 +858,15 @@ p.mla <- plotly.fun(in.anxiety.mla)
 subplot(p.mea, p.mla, nrows = 1, titleX = TRUE, titleY = TRUE, margin = 0.1) %>%
   layout(
     annotations = list(
-      list(x = 0.05, y = .99, text = "Anxiety.mea", 
+      list(x = 0.25, y = 1.05, text = "Anxiety.mea", 
            xref = "paper", yref = "paper", showarrow = FALSE, font = list(size = 14)),
-      list(x = 0.75, y = 0.99, text = "Anxiety.mla", 
+      list(x = 0.95, y = 1.05, text = "Anxiety.mla", 
            xref = "paper", yref = "paper", showarrow = FALSE, font = list(size = 14))
     ),
     showlegend = FALSE
   )
 ```
+
 
 ```{r fig.align='center', fig.width=8, fig.height=5}
 p1 <- plotly.fun(in.anxiety)
@@ -877,6 +889,7 @@ subplot(p1, p2, p2, p4, nrows = 2, titleX = TRUE, titleY = TRUE, margin = 0.1) %
     showlegend = FALSE
   )
 ```
+
 
 ```{r fig.align='center', fig.width=8, fig.height=5}
 p1 <- plotly.fun(in.deductive)
@@ -1183,6 +1196,7 @@ mla0 <- final.anxiety.dat[, c("sex", "Anxiety.mla.wt.pca")]
 names(mea0) = c("sex", "anxiety.score")
 names(mla0) = c("sex", "anxiety.score")
 mea.mla <- rbind(mea0, mla0)
+
 anxiety.type <- c(rep("mea", dim(mea0)[1]), rep("mla", dim(mea0)[1]))
 mea.mla$anxiety.type <- anxiety.type
 ####
@@ -1219,7 +1233,7 @@ fig
 
 Our results are also consistent with existing results in literature.
 
-# Student Perceived Teaching Strategies, Math Anxiety, and Self-efficicay
+# Student Perceived Teaching Strategies, Math Anxiety, Self-efficicay and Their Interconnections
 
 The following heatmap illustrates the pairwise correlations between anxiety levels, student-perceived teaching strategies, and other associated cognitive factors. A negative correlation between anxiety and another composite score (shown in blue) indicates that anxiety decreases as that composite score increases.
 
@@ -1272,7 +1286,7 @@ Both anxieties often stem from common roots, which explains their high positive 
 
 -   **Negative Past Experiences**: Repeated failure or humiliation in math classes during K-12 education is a powerful predictor for both types of anxiety in college (Maloney & Beilock, 2012).
 
--   *Societal and Environmental Factors*: Cultural stereotypes (e.g., "math is for boys," "some people just aren't math people") and teacher anxiety can be transmitted to students, fostering a general sense of apprehension toward the subject.
+-   **Societal and Environmental Factors**: Cultural stereotypes (e.g., "math is for boys," "some people just aren't math people") and teacher anxiety can be transmitted to students, fostering a general sense of apprehension toward the subject.
 
 -   **Fixed Mindset**: The work of Carol Dweck (2006) on mindset is highly relevant. Students with a "fixed mindset" (the belief that math ability is an innate, unchangeable trait) are more vulnerable to both learning and test anxiety. Any struggle is seen as evidence of a lack of ability, causing them to avoid challenging learning and to crumble under the evaluative pressure of tests.
 
@@ -1306,7 +1320,612 @@ The relationships within this triad are reciprocal. A student with high math sel
 include_graphics("TechingStrategies-Anxiety-Self-efficacy.png")
 ```
 
-## Grouping Teaching Strategies
+
+## Lowess Regression Between Anxiety and Teaching Strategies
+
+
+```{r}
+# define a long table for group plots
+## Test Anxiety
+mea.tech.by.gender <- data.frame(
+  anxety.index = rep(all.composite.scores$Anxiety.mea, 7),
+  gender.anx.type = paste0(rep(final.anxiety.dat$sex, 7), " & mea"),
+  teach.index = c(all.composite.scores$Cooporative, all.composite.scores$Deductive.,
+                  all.composite.scores$Demonstration, all.composite.scores$Inductive,
+                  all.composite.scores$Integrative, all.composite.scores$LectureType,
+                  all.composite.scores$Repetitive),
+  TeachingStyle = rep(c("Cooperative", "Deductive", "Demonstration", "Inductive",  
+                        "Integrative", "LectureType",  "Repetitive"), each = 693)
+  
+)
+names(mea.tech.by.gender) <- c("anxety.index", "gender.anx.type", "teach.index", "TeachingStyle")
+mea.tech.by.gender <- na.omit(mea.tech.by.gender)
+
+## Learning Anxiety   4019
+mla.tech.by.gender <- data.frame(
+  anxety.index = rep(all.composite.scores$Anxiety.mla, 7),
+  gender.anx.type = paste0(rep(final.anxiety.dat$sex, 7), " & mla"),
+  teach.index = c(all.composite.scores$Cooporative, all.composite.scores$Deductive.,
+                  all.composite.scores$Demonstration, all.composite.scores$Inductive,
+                  all.composite.scores$Integrative, all.composite.scores$LectureType,
+                  all.composite.scores$Repetitive),
+  TeachingStyle = rep(c("Cooperative", "Deductive", "Demonstration", "Inductive",  
+                        "Integrative", "LectureType",  "Repetitive"), each = 693)
+  
+)
+names(mla.tech.by.gender) <- c("anxety.index", "gender.anx.type", "teach.index", "TeachingStyle")
+mla.tech.by.gender <- na.omit(mla.tech.by.gender)
+
+## Stacking
+anxiety.sex.teach <- na.omit(rbind(mla.tech.by.gender, mea.tech.by.gender))
+
+
+# Create ggplot with facets
+gg <- ggplot(anxiety.sex.teach, aes(x = anxety.index, y = teach.index, color = TeachingStyle, group = TeachingStyle)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ gender.anx.type, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Multi-Panel Loess Plots:",
+       x = "Math Anxiety Index",
+       y = "Teaching Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+  
+```
+
+
+## Self-efficacy vs Teaching Strategies
+
+```{r}
+# define a long table for group plots
+efficay.teach <- data.frame(
+  efficacy.index <- rep(all.composite.scores$SelfEfficacy, 7),
+  gender <- rep(final.anxiety.dat$sex,7),
+  teach.index <-c(all.composite.scores$Cooporative, all.composite.scores$Deductive.,
+                  all.composite.scores$Demonstration, all.composite.scores$Inductive,
+                  all.composite.scores$Integrative, all.composite.scores$LectureType,
+                  all.composite.scores$Repetitive),
+  TeachingStyle = rep(c(" Cooperative", "Deductive", "Demonstration", "Inductive",  
+                        "Integrative", "LectureType",  "Repetitive"), each = 693)
+)
+names(efficay.teach) <- c("efficacy.index", "gender", "teach.index", "TeachingStyle")
+
+# Create plot with smoothed lines
+# Create ggplot with facets
+gg <- ggplot(efficay.teach, aes(x = efficacy.index, y = teach.index, color = TeachingStyle, group = TeachingStyle)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~  gender, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Multi-Panel Loess Plots:",
+       x = "Math Self-efficacy",
+       y = "Teaching Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+  
+
+
+```
+
+
+## Anxiety vs Other Factors
+
+```{r}
+# define a long table for group plots
+mea.other <- data.frame(
+  anxiety.index <- rep(all.composite.scores$Anxiety.mea, 4),
+  gender <- paste0(rep(final.anxiety.dat$sex,4), " & mea"),
+  factor.index <-c(all.composite.scores$SelfEfficacy, all.composite.scores$Technology,
+                  all.composite.scores$Engage, all.composite.scores$Resource.),
+  RelatedFactors = rep(c("SelfEfficacy", "Technology", "Engagement", "UseResource"), each = 693)
+)
+names(mea.other) = c("anxiety.index", "gender", "factor.index", "RelatedFactors")
+
+# mla
+mla.other <- data.frame(
+  anxiety.index <- rep(all.composite.scores$Anxiety.mla, 4),
+  gender <- paste0(rep(final.anxiety.dat$sex,4), " & mla"),
+  factor.index <-c(all.composite.scores$SelfEfficacy, all.composite.scores$Technology,
+                  all.composite.scores$Engage, all.composite.scores$Resource.),
+  RelatedFactors = rep(c("SelfEfficacy", "Technology", "Engagement", "UseResource"), each = 693)
+)
+names(mla.other) = c("anxiety.index", "gender", "factor.index", "RelatedFactors")
+
+anxitey.other <- rbind(mea.other, mla.other)
+
+## plot panels
+# Create ggplot with facets
+gg <- ggplot(anxitey.other, aes(x = anxiety.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ gender, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Multi-Panel Loess Plots:",
+       x = "Math Learning Anxiety",
+       y = "Other Factors") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+```
+
+
+## Closer Lowess Views:Anxiety vs Stratgeis by Learning Styles
+
+```{r}
+anxiety.anova <-final.anxiety.dat[, c("race","sex", "class", "major", "math.level","modality", "Anxiety.mea.wt.pca", "Anxiety.mla.wt.pca")]
+names(anxiety.anova) <-c("race","sex", "class", "major", "math.level","modality", "Anxiety.mea", "Anxiety.mla")
+final.anxiety.anova <- cbind(anxiety.anova ,all.composite.scores)
+
+#final.anxiety.anova <- final.anxiety.anova[, c(-7,-8)]
+
+##
+modality.data <- data.frame(
+  mla.index <- rep(final.anxiety.anova$Anxiety.mla, 7),
+  gender <- rep(final.anxiety.dat$sex,7),
+  factor.index <-c(final.anxiety.anova$Cooporative, final.anxiety.anova$Deductive.,
+                   final.anxiety.anova$Demonstration, final.anxiety.anova$Inductive,
+                   final.anxiety.anova$Integrative, final.anxiety.anova$LectureType,
+                   final.anxiety.anova$Repetitive),
+  RelatedFactors <- rep(c(" Cooperative", "Deductive", "Demonstration", "Inductive",  
+                        "Integrative", "LectureType",  "Repetitive"), each = 693),
+  modalities <- rep(final.anxiety.anova$modality,7)
+)
+names(modality.data) <- c("mla.index", "gender", "factor.index", "RelatedFactors", "modalities")
+```
+
+
+```{r} 
+aud.ID <- which(modality.data$modalities==  "Auditory" )
+auditory <- modality.data[aud.ID, ]
+## ggplotly
+# Create ggplot with facets
+gg <- ggplot(auditory, aes(x = mla.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ gender, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Loess Plots: Auditory Learner",
+       x = "Math Learning Anxiety",
+       y = "Teaching Strategy Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+  
+```
+
+
+
+```{r} 
+viz.ID <- which(modality.data$modalities==  "Visual")
+visual <-modality.data[viz.ID, ]
+
+
+## ggplotly
+# Create ggplot with facets
+gg <- ggplot(visual, aes(x = mla.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~  gender, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Loess Plots: Visual Learner",
+       x = "Math Learning Anxiety",
+       y = "Teaching Strategy Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+```
+
+
+
+
+```{r} 
+kine.ID <- which(modality.data$modalities==  "Kinesthetic")
+Kinesthetic <-modality.data[kine.ID, ]
+
+
+## ggplotly
+# Create ggplot with facets
+gg <- ggplot(Kinesthetic, aes(x = mla.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~  gender, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Loess Plots: Kinesthetic Learner",
+       x = "Math Learning Anxiety",
+       y = "Teaching Strategy Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+```
+
+
+
+A few overall patterns were observed from the three plots:
+
+* **Less Anxious Students**: 
+  + More accurate perception of teaching styles
+  + Better at distinguishing between different instructional approaches
+  + More likely to notice subtle teaching nuances
+  
+* **More Anxious Students**:
+  + Heightened sensitivity to perceived negative cues
+  + More likely to interpret ambiguous teaching behaviors negatively
+  + May overemphasize authority aspects of teaching style
+
+
+* **Bidirectional relationships between Learning Anxiety and Perceived teaching strategies**:
+
+* Anxiety affects how teaching styles are perceived
+* Teaching styles affect student anxiety levels
+* This creates feedback loops that can either improve or worsen learning experiences
+
+**Implication**:  Math anxiety specifically impairs perception of math teaching styles (Ashcraft & Krause, 2007)
+
+
+## Influece of Math Maturity
+
+### Math Test Anxiety
+
+First, we create a two-way frequency table between math maturity level and gender. 
+
+```{r}
+# define a long table for group plots
+## Test Anxiety
+mea.tech.by.gender.level <- data.frame(
+  anxety.index = rep(all.composite.scores$Anxiety.mea, 7),
+  gender.anx.type = rep(final.anxiety.dat$sex, 7), 
+  level.anx.type = rep(final.anxiety.dat$math.level, 7),
+  teach.index = c(all.composite.scores$Cooporative, all.composite.scores$Deductive.,
+                  all.composite.scores$Demonstration, all.composite.scores$Inductive,
+                  all.composite.scores$Integrative, all.composite.scores$LectureType,
+                  all.composite.scores$Repetitive),
+  TeachingStyle = rep(c("Cooperative", "Deductive", "Demonstration", "Inductive",  
+                        "Integrative", "LectureType",  "Repetitive"), each = 693)
+  
+)
+names(mea.tech.by.gender.level) <- c("anxety.index", "gender.anx.type", "math.level", "teach.index", "TeachingStyle")
+mea.tech.by.gender.level <- na.omit(mea.tech.by.gender.level)
+##
+id.other <- which(mea.tech.by.gender.level$math.level =="other")
+##
+reduced.mea.tech.by.gender.level <- mea.tech.by.gender.level[-id.other,]
+##
+Freq3way <- table(reduced.mea.tech.by.gender.level$math.level, reduced.mea.tech.by.gender.level$gender.anx.type, reduced.mea.tech.by.gender.level$TeachingStyle)
+Freq3way[, , 1]
+```
+
+Since there were only 10 male students in math01 categorical, we will exclude this group in the following graphical analysis on how students perceived the teaching strategies at different test anxiety levels adjusted by gender and math maturity levels.
+
+```{r}
+level02.id.mea <- which(mea.tech.by.gender.level$math.level %in% c("math03", "math04"))
+level01.id.mea <- which(mea.tech.by.gender.level$math.level %in% c("math02", "stats"))
+##
+level01.mea <- mea.tech.by.gender.level[level01.id.mea, ]
+level01.mea$condition01 <- paste0(level01.mea$gender.anx.type, " & ", level01.mea$math.level)
+##
+level02.mea <- mea.tech.by.gender.level[level02.id.mea, ]
+level02.mea$condition02 <- paste0(level02.mea$gender.anx.type, " & ", level02.mea$math.level)
+```
+
+
+```{r}
+##
+# Create ggplot with facets
+gg <- ggplot(level01.mea, aes(x = anxety.index, y = teach.index, color = TeachingStyle, group = TeachingStyle)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ condition01, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Loess Plots: Math Level & Gender",
+       x = "Math Test Anxiety Index",
+       y = "Teaching Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+  
+```
+
+```{r}
+##
+# Create ggplot with facets
+gg <- ggplot(level02.mea, aes(x = anxety.index, y = teach.index, color = TeachingStyle, group = TeachingStyle)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ condition02, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Loess Plots: Math Level & Gender",
+       x = "Math Test Anxiety Index",
+       y = "Teaching Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+```
+
+
+
+**Math Learning Anxiety**
+
+
+```{r}
+## Learning Anxiety
+mla.tech.by.gender.level <- data.frame(
+  anxety.index = rep(all.composite.scores$Anxiety.mla, 7),
+  gender.anx.type = rep(final.anxiety.dat$sex, 7), 
+  level.anx.type = rep(final.anxiety.dat$math.level, 7),
+  teach.index = c(all.composite.scores$Cooporative, all.composite.scores$Deductive.,
+                  all.composite.scores$Demonstration, all.composite.scores$Inductive,
+                  all.composite.scores$Integrative, all.composite.scores$LectureType,
+                  all.composite.scores$Repetitive),
+  TeachingStyle = rep(c("Cooperative", "Deductive", "Demonstration", "Inductive",  
+                        "Integrative", "LectureType",  "Repetitive"), each = 693)
+  
+)
+names(mla.tech.by.gender.level) <- c("anxety.index", "gender.anx.type", "math.level", "teach.index", "TeachingStyle")
+mla.tech.by.gender.level <- na.omit(mla.tech.by.gender.level)
+##
+id.other.mla <- which(mla.tech.by.gender$math.level =="other")
+##
+reduced.mla.tech.by.gender.level <- mla.tech.by.gender.level[-id.other.mla,]
+```
+
+
+```{r}
+level02.id.mla <- which(mla.tech.by.gender.level$math.level %in% c("math03", "math04"))
+level01.id.mla <- which(mla.tech.by.gender.level$math.level %in% c("math02", "stats"))
+##
+level01.mla <- mla.tech.by.gender.level[level01.id.mla, ]
+level01.mla$condition01 <- paste0(level01.mla$gender.anx.type, " & ", level01.mla$math.level)
+##
+level02.mla <- mla.tech.by.gender.level[level02.id.mla, ]
+level02.mla$condition02 <- paste0(level02.mla$gender.anx.type, " & ", level02.mla$math.level)
+```
+
+
+
+
+```{r}
+# Create ggplot with facets
+gg <- ggplot(level01.mla, aes(x = anxety.index, y = teach.index, color = TeachingStyle, group = TeachingStyle)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ condition01, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Multi-Panel Loess Plots:",
+       x = "Math Learning Anxiety Index",
+       y = "Teaching Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+  
+```
+
+
+
+
+```{r}
+# Create ggplot with facets
+gg <- ggplot(level02.mla, aes(x = anxety.index, y = teach.index, color = TeachingStyle, group = TeachingStyle)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ condition02, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Multi-Panel Loess Plots:",
+       x = "Math Learning Anxiety Index",
+       y = "Teaching Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+  
+```
+
+
+
+## Relationship Between Anxiety and Self-efficacy
+
+
+```{r}
+var.id.name <- c("sex", "math.level", "Anxiety.mea.wt.pca", "Anxiety.mla.wt.pca", "SelfEfficacy.wt.pca") 
+anxity.selfefficacy <- final.anxiety.dat[, var.id.name]
+new.anxity.selfefficacy <- data.frame(
+  gender = rep(anxity.selfefficacy$sex, 2),
+  level = rep(anxity.selfefficacy$math.level, 2),
+  efficay.index = rep(anxity.selfefficacy$SelfEfficacy.wt.pca, 2),
+  anxiety.index = c(anxity.selfefficacy$Anxiety.mea.wt.pca, anxity.selfefficacy$Anxiety.mla.wt.pca), 
+  anxiety.type = c(rep("mea", 693), rep("mla", 693))
+)
+new.anxity.selfefficacy$condition <- paste0(new.anxity.selfefficacy$gender, " & ", new.anxity.selfefficacy$anxiety.type)
+##
+
+# Create ggplot with facets
+gg <- ggplot(new.anxity.selfefficacy, aes(x = efficay.index, y = anxiety.index, color = level , group = level )) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ condition, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Multi-Panel Loess Plots:",
+       x = "Math Self-efficacy Index",
+       y = "Math Anxiety Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+  
+
+```
+
+
+
+
+
+
+# Grouping Teaching Strategies
 
 The following density curves represent *naive* composite scores derived from the average of item scores for each of the seven teaching strategies. These curves illustrate the students' perceptions of their instructors' teaching strategies. A higher score indicates that students were more likely to perceive the use of that strategy.
 
@@ -1356,12 +1975,16 @@ ridge_gg <- ggplot(long_data, aes(x = value, y = variable, fill = variable
     y = ""
   ) +
   theme(legend.position = "none",
-        plot.title = element_text(hjust = 0.5),
-        plot.margin = margin(t = 1.2, unit = "cm"))
+        plot.title = element_text(hjust = 0.5))
 
 # Convert to plotly
 ggplotly(ridge_gg)
 ```
+
+
+
+
+
 
 As shown in the figure, the **repetitive**, **lecture-type**, **inductive**, and **demonstrative** approaches were perceived as more popular than the **integrative**, **deductive**, and **cooperative** approaches. This observation aligns with the established classification of teaching styles in educational and psychological research and classic textbooks.
 
@@ -1377,6 +2000,8 @@ The above classification is consistent with the one based on cognitive demand (B
 **Note**: The **Demonstrative Approach sub-scale** in this survey measures constructs associated with both **Traditional Teacher-Centered** and **Student-Centered Strategies**. It encompasses not only the teacher's direct demonstration of knowledge but also the use of these demonstrations to facilitate student-led solution building, characterizing it as a hybrid teaching strategy.
 
 This classification demonstrates a spectrum of pedagogical approaches, from traditional, highly structured methods like Lecture and Deductive teaching, to modern, student-driven methods like Inductive, Cooperative, and Integrative learning. Demonstration and Repetitive practice serve specific, often complementary, roles within this spectrum.
+
+
 
 ## Teaching Strategies Modulate the Triad
 
@@ -1400,6 +2025,8 @@ Teaching strategies are not merely methods of content delivery; they are powerfu
 
 -   **Integrative Approach**: Connecting mathematics to real-world problems and other disciplines makes the subject feel relevant and meaningful. This can help students reframe math from a set of abstract, intimidating rules to a useful tool for understanding the world. This perceived utility can increase motivation and engagement, which in turn can bolster self-efficacy and reduce anxiety by providing a compelling reason to persist through challenges.
 
+
+
 ## Create Single Composite Score for the Classification
 
 We next define two single indices to represent the teaching strategies based on the above classification. We conceptualize teacher-centered and student-centered strategies as two single-factor constructs. The indices are defined using a doubly weighted average of the principal components. Following common practice, we report the validity and reliability measures before calculating the composite scores for the two classified teaching strategies.
@@ -1413,12 +2040,9 @@ var.name <-c("Cooporative.cfa", "Deductive.cfa", "Demonstration.cfa",
 Stratege.wt.pca <- final.anxiety.dat[, var.name]
 names(Stratege.wt.pca) <- c("Cooperative", "Deductive", "Demonstrative",
               "Inductive", "Integrative", "Lecture",   "Repetitive")
-
-
-
+##
 teacher0 <- Stratege.wt.pca[,c("Deductive", "Demonstrative", "Lecture", "Repetitive")]
 student0 <- Stratege.wt.pca[,c("Cooperative", "Inductive", "Integrative", "Deductive")]
-###
 ###
 teacher.vlid <-cfa.analysis(teacher0)
 student.vlid <-cfa.analysis(student0)
@@ -1449,6 +2073,8 @@ pander(Rel.table)
 
 The above goodness-of-fit and reliability measures exceed the required thresholds of validity and reliability of an instrument. The **doubly weighted average** of the original composite scores of teaching strategies and appended to the analytic dataset.
 
+
+
 ```{r}
 ###################################### 
 ##### 
@@ -1459,7 +2085,7 @@ scores = function(df, dn){
   x.var <- names(df)
   n0 <- length(x.var)
   cfa.model <-  paste("latent =~", paste(x.var, collapse = " + "))
-  cfa.fit <- cfa(cfa.model, data = df, estimator = "MLM")
+  cfa.fit <- cfa(cfa.model, data = df)#, estimator = "MLM")
   composite.cfa <- lavPredict(cfa.fit)
   ##########################
   # pca analysis
@@ -1484,16 +2110,199 @@ scores = function(df, dn){
                            cfa = as.vector(composite.cfa)))
   names(outdata) <- paste0(dn,".", names(outdata), sep = "")
   outdata
- }
+}
+
 ###
 teacher <- scores(teacher, "Teacher.ctrd")
 student <- scores(student, "Student.ctrd")
-Anxiety.Analytic.Data <- cbind(finalDat, teacher, student)
+Anxiety.Analytic.Data <- cbind(na.omit(finalDat), teacher, student)
 ```
 
+
 ```{r echo = FALSE, eval = FALSE}
-write.csv(Anxiety.Analytic.Data, "C:\\Users\\75CPENG\\OneDrive - West Chester University of PA\\Desktop\\cpeng\\WCU-Teaching\\2025Fall\\MathAxiety\\Anxiety.Analytic.Data.csv")
+#write.csv(Anxiety.Analytic.Data, "C:\\Users\\75CPENG\\OneDrive - West Chester University of PA\\Desktop\\cpeng\\WCU-Teaching\\2025Fall\\MathAxiety\\Anxiety.Analytic.Data.csv")
 ```
+
+
+## Influence of Math Maturity
+
+```{r}
+Anxiety.Analytic.Data <- read.csv("C:\\Users\\75CPENG\\OneDrive - West Chester University of PA\\Desktop\\cpeng\\WCU-Teaching\\2025Fall\\MathAxiety\\Anxiety.Analytic.Data.csv")
+```
+
+
+```{r}
+group.var <- c("sex", "math.level", "Anxiety.mea.wt.pca", "Anxiety.mla.wt.pca", "SelfEfficacy.wt.pca", "Student.ctrd.wt.pca","Teacher.ctrd.wt.pca")
+group.strategy <- Anxiety.Analytic.Data[, group.var]
+names(group.strategy) <-c("gender", "math.level", "anxiety.mea", "anxiety.mla", "self.efficacy", "student.ctrd", "teacher.ctrd")
+##
+group.strategy.loess <- data.frame(
+  mla.index <- rep(group.strategy$anxiety.mla, 2),
+  gender <- rep(group.strategy$gender,2),
+  factor.index <-c(group.strategy$student.ctrd, group.strategy$teacher.ctrd),
+  RelatedFactors <- rep(c("student.ctrd", "teacher.ctrd"), each = 693),
+  math.level <- rep(group.strategy$math.level,2)
+)
+names(group.strategy.loess) <- c("mla.index", "gender", "factor.index", "RelatedFactors", "math.level")
+
+level01.id <- which(group.strategy.loess$math.level %in% c("math02", "stats"))
+level02.id <- which(group.strategy.loess$math.level %in% c("math03", "math04"))
+##
+level01.data <-group.strategy.loess[level01.id , ]
+level01.data$gender.level <- paste0(level01.data$gender, " & ", level01.data$math.level)
+##
+level02.data <-group.strategy.loess[level02.id , ]
+level02.data$gender.level <- paste0(level02.data$gender, " & ", level02.data$math.level)
+```
+
+```{r}
+gg <- ggplot(level01.data, aes(x = mla.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ gender.level, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Loess Plots: Teaching Strategy vs Learning Anxiety",
+       x = "Math Learning Anxiety",
+       y = "Teaching Strategy Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+```
+
+
+```{r}
+gg <- ggplot(level02.data, aes(x = mla.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ gender.level, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Loess Plots: Teaching Strategy vs Learning Anxiety",
+       x = "Math Learning Anxiety",
+       y = "Teaching Strategy Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+```
+
+
+```{r}
+group.var <- c("sex", "math.level", "Anxiety.mea.wt.pca", "Anxiety.mla.wt.pca", "SelfEfficacy.wt.pca", "Student.ctrd.wt.pca","Teacher.ctrd.wt.pca")
+group.strategy <- Anxiety.Analytic.Data[, group.var]
+names(group.strategy) <-c("gender", "math.level", "anxiety.mea", "anxiety.mla", "self.efficacy", "student.ctrd", "teacher.ctrd")
+##
+group.strategy.loess.mea <- data.frame(
+  mea.index <- rep(group.strategy$anxiety.mea, 2),
+  gender <- rep(group.strategy$gender,2),
+  factor.index <-c(group.strategy$student.ctrd, group.strategy$teacher.ctrd),
+  RelatedFactors <- rep(c("student.ctrd", "teacher.ctrd"), each = 693),
+  math.level <- rep(group.strategy$math.level,2)
+)
+names(group.strategy.loess.mea) <- c("mea.index", "gender", "factor.index", "RelatedFactors", "math.level")
+
+level01.id.mea <- which(group.strategy.loess.mea$math.level %in% c("math02", "stats"))
+level02.id.mea <- which(group.strategy.loess.mea$math.level %in% c("math03", "math04"))
+##
+level01.data.mea <-group.strategy.loess.mea[level01.id.mea, ]
+level01.data.mea$gender.level <- paste0(level01.data.mea$gender, " & ", level01.data.mea$math.level)
+##
+level02.data.mea <-group.strategy.loess.mea[level02.id.mea, ]
+level02.data.mea$gender.level <- paste0(level02.data.mea$gender, " & ", level02.data.mea$math.level)
+```
+
+
+```{r}
+gg <- ggplot(level01.data.mea, aes(x = mea.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ gender.level, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Loess Plots: Teaching Strategy vs Test Anxiety",
+       x = "Math Test Anxiety",
+       y = "Teaching Strategy Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+```
+
+
+
+
+```{r}
+gg <- ggplot(level02.data.mea, aes(x = mea.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
+  #geom_point(alpha = 0.5, size = 1.5) +
+  geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
+  facet_wrap(~ gender.level, ncol = 2, nrow = 2) +
+  scale_color_viridis_d(option = "plasma") +
+  labs(title = "Loess Plots: Teaching Strategy vs Test Anxiety",
+       x = "Math Test Anxiety",
+       y = "Teaching Strategy Index") +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5)
+  )
+
+# Convert to interactive plotly
+ggplotly(gg) %>%
+  layout(
+    hovermode = "x unified",
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.1
+    )
+  )
+```
+
+
+
 
 # Linear Regression Analysis
 
@@ -1502,7 +2311,7 @@ This section moves from the previous descriptive analyses to a regression analys
 The regression model also incorporates the two teaching strategies as predictor variables. We also realized that the two variables are correlated.
 
 ```{r echo = FALSE, eval = TRUE}
-anxiety.inf.data0 <- read.csv("https://pengdsci.github.io/MathAnxiety/Anxiety.Analytic.Data.csv")
+anxiety.inf.data0 <- na.omit(read.csv("https://pengdsci.github.io/MathAnxiety/Anxiety.Analytic.Data.csv"))
 inf.var <- c("Anxiety.mea.wt.pca", "Anxiety.mla.wt.pca", "sex", "race", "class", "major", "math.level", "modality", "SelfEfficacy.wt.pca", "Technology.wt.pca",
  "Cooporative.wt.pca", "Deductive.wt.pca", "Demonstration.wt.pca", "Inductive.wt.pca",    "Integrative.wt.pca", "LectureType.wt.pca", "Repetitive.wt.pca", "Engage.wt.pca", "Resource.wt.pca","Teacher.ctrd.wt.pca", "Student.ctrd.wt.pca")
 ##
@@ -1548,7 +2357,7 @@ BestSubsetsReg <- function(best.subset.model){
 }
 ```
 
-We use the best subset approach to model identification. The following are plots of a few performance measures agaist the number of predictor variables to be retained in the final model.
+We use the best subset approach to model identification. The following are plots of a few performance measures against the number of predictor variables to be retained in the final model.
 
 ```{r echo = TRUE, fig.align='center', fig.width=7, fig.height=6}
 mea.lm.data <- anxiety.reg.data[,-c(2,20,21)]
@@ -1596,7 +2405,7 @@ get.all.boot.cis <- function(boot.output, type = "perc") {
   return(ci.matrix)
 }
 
-# Perform bootstrap (R = number of resamples)
+# Perform bootstrap (R = number of re-samples)
 set.seed(311)  # for reproducibility
 boot.results <- boot(mea.lm.data, boot.coef, R = 1000)
 ## bootstrap CI
@@ -1640,7 +2449,7 @@ boot.coef.ctrd <- function(data, indices) {
   return(coef(fit))      # return coefficients
 }
 
-# Perform bootstrap (R = number of resamples)
+# Perform bootstrap (R = number of re-samples)
 set.seed(312)  # for reproducibility
 boot.results.ctrd <- boot(anxiety.reg.data, boot.coef.ctrd, R = 1000)
 # Combine the linear regression output with the bootstrap CI
@@ -1650,6 +2459,8 @@ print(InferenceTable)
 ```
 
 The results above are consistent with the previous regression that used individual teaching strategies as predictors. The key difference is that the **integrative teaching approach** was significant in the former model, whereas **student-centered** teaching strategies are significant in the current one. However, since an integrative approach is a specific type of student-centered strategy, the models ultimately yield congruent findings.
+
+
 
 ## Factors Associated with Learning Anxiety
 
@@ -1694,7 +2505,7 @@ boot.coef.mla <- function(data, indices) {
   return(coef(fit))      # return coefficients
 }
 
-# Perform bootstrap (R = number of resamples)
+# Perform bootstrap (R = number of re-samples)
 set.seed(312)  # for reproducibility
 boot.results.mla<- boot(mla.lm.data, boot.coef.mla, R = 1000)
 ## combine regular regression output and the bootstrap CI
@@ -1713,7 +2524,7 @@ Overall, these results highlight that students' confidence in their math abiliti
 
 ### Using Grouped Teaching Strategies
 
-We next build a regression similar to the above one but replace the individual teaching strategy variables with the two grouped teaching strategy variables: teacher-centered amd student-centered approaches.
+We next build a regression similar to the above one but replace the individual teaching strategy variables with the two grouped teaching strategy variables: teacher-centered and student-centered approaches.
 
 ```{r echo = TRUE, fig.align='center', fig.width=7, fig.height=6}
 mla.lm.data.ctrd <- anxiety.reg.data[,-c(1, 11:17)]
@@ -1741,7 +2552,7 @@ boot.coef.mla.ctrd <- function(data, indices) {
   fit <- lm(MLA.model.formula , data = d)
   return(coef(fit))      # return coefficients
 }
-# Perform bootstrap (R = number of resamples)
+# Perform bootstrap (R = number of re-samples)
 set.seed(312)  # for reproducibility
 boot.results.ctrd <- boot(mla.lm.data.ctrd, boot.coef.mla.ctrd, R = 1000)
 ## combining bootstrap CIs with the default output in the lm()
@@ -1817,11 +2628,10 @@ We use the R `lavaan` library to implement the SEM to assess the relationship be
 -   `a*` labels the parameter 'a', used for model constraints (e.g., `f =~ a*q`)
 
 
-
-
-
 ```{r}
-set.seed(12321)
+##
+na.ID <- c(which(is.na(demographics$race)),which(is.na(demographics$major)),which(is.na(demographics$sex)))
+##
 Anxiety.mea <- Comp.Anxiety[, c("AMAS.2", "AMAS.4", "AMAS.5",  "AMAS.8")]
 Anxiety.mla <- Comp.Anxiety[, c("AMAS.1", "AMAS.3", "AMAS.6", "AMAS.7", "AMAS.9")]
 names(Anxiety.mea) <- c("MEA2", "MEA4", "MEA5",  "MEA8")  
@@ -1838,7 +2648,7 @@ stratgy.var <-c("Cooporative.wt.pca", "Deductive.wt.pca", "Demonstration.wt.pca"
 strategy.name <- c("Coop", "Deduc", "Demon", "Induc","Integ" ,"Lect", "Repet" )
 teachingstrategy <- Anxiety.Analytic.Data[, stratgy.var]
 names(teachingstrategy) <- strategy.name 
-SEM.data <- cbind(Anxiety.mea, Anxiety.mla, factor.var,teachingstrategy )
+SEM.data <- cbind(Anxiety.mea[-na.ID,], Anxiety.mla[-na.ID,], factor.var,teachingstrategy )
 
 ###  SEM models
 
@@ -1877,7 +2687,7 @@ The component regression and latent models in the SEM are specified in the follo
 
 The key goodness-of-fit statistics and estimated parameters are summarized in the following.
 
-```{r echo = FALSE}
+```{r}
 interpret_fit <- function(fit_obj) {
   measures <- fitMeasures(fit_obj)
   
@@ -1964,7 +2774,7 @@ report_sem <- function(fit, model_name = "The SEM") {
 }
 
 # Use the function
-#report_sem(output, "Math Anxiety")
+report_sem(output, "Math Anxiety")
 ```
 
 The regression coefficients and factor loadings in the above table are summarized in the following SEM path diagram generated using `lavaanPlot` function.
@@ -1984,130 +2794,53 @@ include_graphics("FittedlSEM.png")
 
 ## Results and Discussion of SEM Anlysis
 
-A structural equation model (SEM) was estimated to examine the effects of perceived teaching strategies and student characteristics on two dimensions of mathematics anxiety: **Math Evaluation Anxiety (MEA)** and **Math Learning Anxiety (MLA)**. The model demonstrated excellent fit to the data:
+### Results
 
-$$
-\chi^2(168) = 542.75, \, p < .001, \,
-\text{CFI} = .968, \,
-\text{TLI} = .962, \,
-\text{RMSEA} = .057 \, [90\% \text{CI } .051, .062], \,
-\text{SRMR} = .059.
-$$
+The hypothesized structural equation model demonstrated an acceptable fit to the data: $\chi^2(168) = 664.75, p < .001$; $CFI = 0.927; TLI = 0.913$; $RMSEA = 0.065 (90% CI [0.060, 0.070])$; and $SRMR = 0.070$ These fit indices indicate that the proposed model adequately represents the observed data, with values meeting or exceeding conventional thresholds for acceptable model fit.
 
-\
+Several significant structural paths emerged. **Technology** use was a significant negative predictor of both evaluation anxiety ($\beta = –0.13, p < .001$) and learning anxiety ($\beta = –0.20, p < .001$), suggesting that greater technological proficiency or integration was associated with reduced anxiety in both contexts. Similarly, self-efficacy negatively predicted evaluation anxiety ($\beta = –0.47, p < .001$) and learning anxiety ($\beta = –0.42, p < .001$), indicating that individuals with higher self-efficacy experienced lower levels of anxiety.
 
-**Measurement Model**
+**Gender** also had a significant effect on evaluation anxiety ($\beta = –0.13, p < .001$), implying potential gender-based differences in evaluation-related apprehension. Although **student-centered instruction** was marginally related to learning anxiety ($\beta = –0.51, p = .059$), **resource availability** positively predicted learning anxiety ($\beta = 0.12, p = .001$), indicating that access to additional resources may not uniformly alleviate anxiety and could, in some contexts, contribute to *increased pressure* or *cognitive load*. Other hypothesized paths (e.g., **engagement**, **teacher-centered approaches**) were not statistically significant (all $p > .05$).
 
-Standardized loadings were consistently strong across latent factors ($\lambda = .53$–.89), supporting reliability and convergent validity. The model explained 42.9% of the variance in MEA and 29.7% in MLA.
+All observed indicators loaded significantly onto their respective latent constructs (all $p < .001$), with standardized factor loadings ranging from 0.51 to 0.88, supporting construct validity. For Evaluation Anxiety, the strongest indicators were **MEA2** ($\lambda = 0.883$) and **MEA4** ($\lambda = 0.857$). For Learning Anxiety, the highest loadings were observed for **MLA9** ($\lambda = 0.725$) and **MLA3** ($\lambda = 0.714$). Among teaching approaches, **Teacher-Centered Instruction** was best represented by **Deductive** ($\lambda = 0.886$) and **Lecture** ($\lambda = 0.868$) methods, while **Student-Centered Instruction** was best reflected by **Inductive** ($\lambda = 0.862$) and **Cooperative** ($\lambda = 0.733$) strategies.
 
-```{r, echo=FALSE}
-library(knitr)
-Table1 <- data.frame(
-  Latent_Variable = c("Math Evaluation Anxiety", "", "", "",
-                      "Math Learning Anxiety", "", "", "", "",
-                      "Teacher-Centered", "", "", "",
-                      "Student-Centered", "", ""),
-  Indicator = c("MEA2","MEA4","MEA5","MEA8",
-                "MLA1","MLA3","MLA6","MLA7","MLA9",
-                "Deductive","Lecture Type","Demonstration","Repetitive",
-                "Cooperative","Inductive","Integrative"),
-  Lambda = c(.88,.84,.67,.65,
-             .53,.71,.74,.64,.73,
-             .88,.89,.80,.75,
-             .73,.87,.68),
-  R2 = c(.77,.70,.45,.42,
-         .28,.51,.54,.40,.54,
-         .78,.79,.64,.56,
-         .54,.76,.46)
-)
+The model accounted for 34.9% of the variance in evaluation anxiety and 33.4% of the variance in learning anxiety, indicating moderate explanatory power. The covariance between evaluation anxiety and learning anxiety was significant and positive ($r = 0.53$), suggesting that while distinct, these two forms of anxiety are moderately correlated.
 
-kable(Table1, caption = "Table 1. Standardized Factor Loadings and Variance Explained for Latent Constructs")
-```
+Overall, the results highlight the pivotal role of **self-efficacy** and **technology use** in mitigating both evaluation and learning-related anxiety. These findings align with prior research emphasizing that confidence in one's abilities and familiarity with digital tools can enhance perceived control and reduce anxiety in academic contexts. The marginal influence of **student-centered approaches** suggests potential benefits for reducing learning anxiety through active and participatory learning environments, although the effect did not reach conventional significance. The positive association between **resource availability** and anxiety may indicate that while access to materials supports learning, it can also introduce information overload or performance expectations that heighten anxiety. Together, these findings underscore the multifaceted nature of academic anxiety and point to the importance of fostering efficacy and technological readiness to create supportive learning environments.
 
+These findings collectively inform the subsequent discussion on how **instructional design**, **self-efficacy**, and **technology integration** interact to influence learners' emotional experiences and academic engagement.
 
-**Structural Model**
+### Discussion
 
+The present study investigated the structural relationships among technology use, self-efficacy, instructional approaches, and two forms of academic anxiety---evaluation anxiety and learning anxiety---within a comprehensive structural equation modeling (SEM) framework. The findings provide important insights into how individual and instructional factors jointly shape learners' emotional experiences in academic contexts.
 
-Standardized regression coefficients are shown in Table 2. Negative coefficients indicate reduced anxiety.
+Consistent with prior research, self-efficacy emerged as the most robust predictor of both evaluation and learning anxiety. Students who reported higher confidence in their academic abilities experienced significantly lower levels of anxiety, underscoring the protective function of self-belief in coping with academic demands. Similarly, technology use negatively predicted both types of anxiety, suggesting that familiarity and comfort with technological tools may help students navigate learning environments more effectively and reduce apprehension about performance.
 
-```{r}
-Table2 <- data.frame(
-Predictor = c("Technology Use","Self-Efficacy","Gender",
-"Technology Use","Self-Efficacy","Engagement",
-"Teacher-Centered Strategies","Student-Centered Strategies","Resource Availability"),
-Outcome = c("Evaluation Anxiety","Evaluation Anxiety","Evaluation Anxiety",
-"Learning Anxiety","Learning Anxiety","Learning Anxiety",
-"Learning Anxiety","Learning Anxiety","Learning Anxiety"),
-Beta = c(-.16,-.49,-.14,
--.22,-.45,-.09,
-1.54,-1.87,.13),
-SE = c(.04,.03,.04,
-.04,.04,.04,
-.82,.82,.04),
-z = c(-3.91,-14.56,-3.88,
--5.14,-12.58,-2.50,
-1.88,-2.29,3.07),
-p = c("< .001","< .001","< .001",
-"< .001","< .001",".012",
-".060",".022",".002")
-)
+Although student-centered instruction was only marginally associated with reduced learning anxiety, the direction of this relationship is theoretically meaningful. Learners exposed to inductive, cooperative, and integrative teaching strategies may perceive greater autonomy and support, which can lessen anxiety and foster intrinsic motivation. The positive association between resource availability and learning anxiety suggests that access to abundant materials does not necessarily alleviate stress; instead, it may introduce cognitive overload or performance pressure.
 
-kable(Table2, caption = "Table 2. Standardized Structural Regression Paths Predicting Math Anxiety")
-```
+Gender significantly predicted evaluation anxiety, highlighting the importance of considering sociocultural and disciplinary factors that shape how gender interacts with academic emotions. The strong positive covariance between evaluation and learning anxiety indicates that these constructs are related yet distinct, supporting theories that emphasize interconnected emotional experiences in learning.
 
-Consistent with expectations, 
+The findings underscore the need for instructional designs that enhance self-efficacy and technological confidence as central strategies for reducing academic anxiety. Instructors can promote self-efficacy through scaffolded feedback, mastery-oriented assessments, and opportunities for self-reflection. Purposeful technology integration and structured guidance can further support confidence and reduce anxiety. Future studies should explore additional predictors and contextual variables, as well as employ longitudinal designs to clarify causal pathways.
 
-* **More effectively using technology** reduced MEA ($\beta = -0.16$, $p < .001$) and MLA ($\beta = -0.22$, $p < .001$). 
-* **Higher Self-efficacy** students tended to have lower MEA ($\beta = -0.49$, $p < .001$) and MLA ($\beta = -0.45$, $p < .001$). 
-* **More Engagement** reduced MLA ($\beta = -0.09$, $p = .012$), and 
-* **gender** was significant. Male students tended to have lower MEA ($\beta = -0.14$, $p < .001$).
+In summary, the findings demonstrate that self-efficacy and technology use are key protective factors against both evaluation and learning anxiety, whereas instructional context and resource management play secondary roles. These insights contribute to a growing understanding of how personal and pedagogical factors interact to shape emotional experiences in learning environments.
 
-Regarding teaching approaches, 
+### Practical Implications
 
-* **student-centered strategies** significantly reduced MLA ($\beta = -1.87$, $p = .022$). 
-* **Teacher-centered strategies** showed a marginally positive association with MLA ($\beta = 1.54$, $p = .060$); however, confidence intervals included zero. Neither strategy significantly predicted MEA ($p > .10$).
+1.  Enhance Students' Self-Efficacy: Provide opportunities for early success, mastery experiences, and positive feedback to build learners' confidence.
+2.  Promote Meaningful Technology Integration: Integrate digital tools purposefully within instruction to foster engagement and reduce technology-related anxiety.
+3.  Adopt Student-Centered Teaching Practices: Encourage collaborative, problem-based, and peer-driven learning to alleviate anxiety and promote autonomy.
+4.  Balance Resource Provision and Cognitive Load: Curate instructional materials carefully to prevent information overload and ensure clarity of expectations.
+5.  Address Gender and Contextual Differences: Tailor support strategies to address potential gender-based and contextual variations in academic anxiety.
 
-A moderate, positive covariance remained between MEA and MLA:
+### Summary of Key Findings
 
-$$
-\phi_{MEA,MLA} = 0.50.
-$$
-  
-  
-indicating that students who experienced anxiety during learning also tended to experience anxiety in evaluative situations. This is consistent with eixting research as reviewed earlier.
+This study employed structural equation modeling to examine the interplay among technology use, self-efficacy, instructional approaches, and two dimensions of academic anxiety: evaluation anxiety and learning anxiety. The model demonstrated an acceptable overall fit and explained a substantial proportion of variance in both outcomes.
 
-These findings suggest that supportive instructional approaches—particularly those emphasizing collaboration, inquiry, and student participation—play an important role in reducing students’ emotional barriers to mathematics learning.
+The results revealed that self-efficacy and technology use were the strongest protective factors against academic anxiety. Self-efficacy had the largest negative associations with both evaluation and learning anxiety, indicating that students who feel competent are less likely to experience anxiety across academic contexts. Technology use similarly reduced anxiety, suggesting that familiarity with digital tools fosters comfort and perceived control during learning and assessment.
 
-\
+While student-centered instruction showed a marginally negative relationship with learning anxiety, resource availability unexpectedly predicted higher anxiety. Gender differences also emerged for evaluation anxiety, suggesting variation in emotional responses to academic evaluation across groups.
 
-## Discussion
-
-The purpose of this study was to examine how perceived teaching strategies, self-efficacy, technology use, engagement, and resource availability relate to two forms of mathematics anxiety: **Math Evaluation Anxiety (MEA)** and **Math Learning Anxiety (MLA)**. The results of the structural equation model (SEM) provided strong support for the hypothesized associations and highlighted instructional practices that may be particularly effective for reducing students’ emotional challenges in mathematics contexts.
-
-### Interpretation of Key Findings
-
-Consistent with previous research, **student-centered strategies** significantly reduced learning-related anxiety, suggesting that learning environments promoting collaboration, inquiry, and active engagement can mitigate negative emotional responses. Such practices may help students feel more competent and supported, reducing anxiety during math learning.
-
-**Teacher-centered approaches** showed a marginally positive association with learning anxiety. While direct instruction may provide clarity and structure, excessive emphasis on performance and correctness may inadvertently heighten pressure and lead to increased anxiety (Ramirez et al., 2018). These results suggest that although teacher guidance remains important, balanced instructional approaches may be necessary to prevent adverse emotional effects.
-
-Both **self-efficacy** and **technology use** consistently predicted lower MEA and MLA. Students who believe in their ability to succeed tend to approach math tasks with more confidence and persistence, which protects against anxiety (Bandura, 1997; Usher et al., 2019). Technology-enhanced learning opportunities—such as immediate feedback and interactive practice—may also increase comfort and control when engaging with math content.
-
-Although smaller in magnitude, **engagement** also contributed to reduced anxiety during learning. When students are emotionally and behaviorally invested in math activities, they may experience increased enjoyment and reduced avoidance tendencies (Dowker et al., 2016). In contrast, **resource availability** was associated with slightly higher learning anxiety. This may reflect heightened expectations or perceived pressure to meet academic standards when more supports are available.
-
-Finally, the **positive covariance** between MEA and MLA indicated meaningful overlap between the two constructs, consistent with the literature showing shared emotional, cognitive, and motivational underpinnings of different forms of math anxiety (Ashcraft & Moore, 2009). Together, these findings emphasize the importance of instructional and motivational factors in shaping students’ math-related emotional experiences.
-
-### Implications
-
-These findings suggest that educators should foster environments that promote student autonomy and confidence, while using instructional supports that enhance understanding without increasing perceived pressure. Professional learning programs may benefit from emphasizing strategies that build emotional safety and support students’ belief in their mathematical capability (Hembree, 1990). Additionally, technology tools should be leveraged strategically to promote active participation and self-paced engagement, rather than as stand-alone resources.
-
-### Limitations and Future Directions
-
-The cross-sectional design limits the ability to draw causal conclusions. Longitudinal and intervention-based research could strengthen understanding of how the identified factors contribute to anxiety reduction over time. Self-report survey methods may introduce social desirability or recall bias; therefore, multimethod approaches incorporating observational or physiological data could further validate findings. Future work may also explore instructional context, such as classroom climate or teacher attitudes, as moderators of the anxiety–strategy relationship.
-
-### Conclusion
-
-Overall, this study demonstrates that math anxiety is shaped by a combination of instructional practices and personal beliefs. Encouraging student-centered instruction, self-efficacy building, technology integration, and high-quality engagement can substantially reduce both learning-related and evaluation-related anxiety. These results underscore the importance of supporting students’ emotional well-being as a foundation for their mathematical success.
-
+Together, these findings demonstrate that fostering self-efficacy, digital competence, and balanced instructional design can substantially reduce students' anxiety and promote more positive academic experiences. The study contributes to a growing body of evidence highlighting the interconnected roles of personal beliefs, technology, and pedagogy in shaping students' emotional engagement and success.
 
 \
 
@@ -2115,7 +2848,7 @@ Overall, this study demonstrates that math anxiety is shaped by a combination of
 
 Ashcraft, M. H. (2002). Math anxiety: Personal, educational, and cognitive consequences. Current directions in psychological science, 11(5), 181-185.
 
-Ashcraft, M. H., & Moore, A. M. (2009). Mathematics anxiety and the affective drop in performance. Journal of Psychoeducational assessment, 27(3), 197-205.
+Ashcraft, M. H., & Krause, J. A. (2007). "Working memory, math performance, and math anxiety." Psychonomic Bulletin & Review, 14(2), 243-248.
 
 Asparouhov, T., & Muthén, B. (2005, November). Multivariate statistical modeling with survey data. In Proceedings of the Federal Committee on Statistical Methodology (FCSM) research conference (pp. 14-16).
 
@@ -2143,8 +2876,6 @@ Daker, R. J., Gattas, S. U., Sokolowski, H. M., Green, A. E., & Lyons, I. M. (20
 Devine, A., Fawcett, K., Szűcs, D., & Dowker, A. (2012). Gender differences in mathematics anxiety and the relation to mathematics performance while controlling for test anxiety. Behavioral and brain functions, 8(1), 33.
 
 DiStefano, C., Zhu, M., & Mindrila, D. (2009). Understanding and using factor scores: Considerations for the applied researcher. Practical assessment, research, and evaluation, 14(1).
-
-Dowker, A., Sarkar, A., & Looi, C. Y. (2016). Mathematics anxiety: What have we learned in 60 years?. Frontiers in psychology, 7, 508.
 
 Dreger, R. M., & Aiken Jr, L. R. (1957). The identification of number anxiety in a college population. Journal of Educational Psychology, 48(6), 344.
 
@@ -2174,7 +2905,7 @@ Hembree, R. (1990). The nature, effects, and relief of mathematics anxiety. Jour
 
 Hopko, D. R., Mahadevan, R., Bare, R. L., & Hunt, M. K. (2003). The abbreviated math anxiety scale (AMAS) construction, validity, and reliability. Assessment, 10(2), 178–182.
 
- Hirschberg, E., & Standish, C. V. (1959). A method of deriving a stratification score by using the principal components of the correlation matrix. American Statistical Association, Proceedings of the Social Statistics Section, 1959, 220-225.
+Hirschberg, E., & Standish, C. V. (1959). A method of deriving a stratification score by using the principal components of the correlation matrix. American Statistical Association, Proceedings of the Social Statistics Section, 1959, 220-225.
 
 Jacobs, H. H. (1989). Interdisciplinary curriculum: Design and implementation. Association for Supervision and Curriculum Development, 1250 N. Pitt Street, Alexandria, VA 22314.
 
@@ -2195,6 +2926,8 @@ Lazarsfeld, P. F., Stouffer, S. A., Guttman, L., & Suchman, E. A. (1950). Measur
 Li, C. H. (2016). The performance of ML, DWLS, and ULS estimation with robust corrections in structural equation models with ordinal variables. Psychological methods, 21(3), 369.
 
 López-Bonilla, J. M.l and López-Bonilla, L. M. (2012), Validation of an information technology anxiety scale in undergraduates, British Journal of Educational Technology Vol 43. No 2.  E56–E58.  doi:10.1111/j.1467-8535.2011.01256.x
+
+Luttenberger, S., Wimmer, S., & Paechter, M. (2018). Spotlight on math anxiety. Psychology research and behavior management, 311-322.
 
 Maloney, E. A., & Beilock, S. L. (2012). Math anxiety: Who has it, why it develops, and how to guard against it. Trends in cognitive sciences, 16(8), 404-406.
 
@@ -2226,14 +2959,11 @@ Segool, N. K., Carlson, J. S., Goforth, A. N., Von Der Embse, N., & Barterian, J
 
 Spooren, P., Brockx, B., & Mortelmans, D. (2013). On the validity of student evaluation of teaching: The state of the art. Review of Educational Research, 83(4), 598-642.
 
-Usher, E. L., Li, C. R., Butz, A. R., & Rojas, J. P. (2019). Perseverant grit and self-efficacy: Are both essential for children’s academic success?. Journal of Educational Psychology, 111(5), 877.
-
  Watson, D., Clark, L. A., & Tellegen, A. (1988). Development and validation of brief measures of positive and negative affect: The PANAS scales. Journal of Personality and Social Psychology, 54(6), 1063–1070.
 
 Wilson, S. (2013). Mature age pre-service teachers’ mathematics anxiety and factors impacting on university retention. Mathematics Education: Yesterday, Today and Tomorrow (MERGA36), 666–673.
 
 Zakaria, E., Zain, N. M., Ahmad, N. A., & Erlina, A. (2012). Mathematics anxiety and achievement among secondary school students. American Journal of Applied Sciences, 9(11), 1828.
-
 
 \
 
@@ -2245,10 +2975,10 @@ Zakaria, E., Zain, N. M., Ahmad, N. A., & Erlina, A. (2012). Mathematics anxiety
 
 We will use a questionnaire with four items that assess math evaluation anxiety to demonstrate the procedure.
 
-  -   $x_1$: Thinking about a math test the day before you take it.
-  -   $x_2$: Taking a math test.
-  -   $x_3$: Being given a homework assignment of many difficult problems that is due for the next class meeting.
-  -   $x_4$: Being given a quiz on math without knowing in advance.
+-   $x_1$: Thinking about a math test the day before you take it.
+-   $x_2$: Taking a math test.
+-   $x_3$: Being given a homework assignment of many difficult problems that is due for the next class meeting.
+-   $x_4$: Being given a quiz on math without knowing in advance.
 
 Let $\mathbf{x} = [x_1, x_2, x_3, x_4]^T$ be a random vector representing the responses of a randomly selected individual to the four items. We assume $\mathbf{x}$ has a population mean vector $\boldsymbol{\mu}$ and population covariance matrix $\boldsymbol{\Sigma}$.
 
@@ -2361,7 +3091,7 @@ This is again an eigenvalue equation. The variance of $z_2$ is $\lambda_2$. To m
 
 **6. Subsequent Components and Full Solution**
 
-This process continues for all four components. The solution to the PCA problem is found by performing the **eigendecomposition** of the sample covariance matrix $\mathbf{S}$:
+This process continues for all four components. The solution to the PCA problem is found by performing the \textbf{eigendecomposition} of the sample covariance matrix $\mathbf{S}$:
 
 $$
 \mathbf{S} = \mathbf{W} \boldsymbol{\Lambda} \mathbf{W}^T
@@ -2408,9 +3138,9 @@ $$
 
 In the context of our math evaluation anxiety questionnaire:
 
--   The loading vector $\mathbf{w}_1 = [w_{11}, w_{12}, w_{13}, w_{14}]^T$ reveals how the original items combine to form the primary latent dimension of anxiety. For example, if all loadings are positive and similar, $z_1$ might represent **general Math Evaluation Anxiety**.
+-   The loading vector $\mathbf{w}_1 = [w_{11}, w_{12}, w_{13}, w_{14}]^T$ reveals how the original items combine to form the primary latent dimension of anxiety. For example, if all loadings are positive and similar, $z_1$ might represent \textbf{General Math Evaluation Anxiety}.
 
--   The second component $\mathbf{w}_2$ might contrast different types of anxiety. For instance, if $w_{21}$ and $w_{22}$ (test-related) are positive while $w_{23}$ and $w_{24}$ (pop quiz/homework) are negative, $z_2$ might represent **Test Anxiety vs. Spontaneous Evaluation Anxiety**.
+-   The second component $\mathbf{w}_2$ might contrast different types of anxiety. For instance, if $w_{21}$ and $w_{22}$ (test-related) are positive while $w_{23}$ and $w_{24}$ (pop quiz/homework) are negative, $z_2$ might represent \textbf{Test Anxiety vs. Spontaneous Evaluation Anxiety}.
 
 -   By examining the loadings, we can interpret the underlying psychological constructs that drive the correlations between the four questionnaire items.
 
@@ -2418,7 +3148,7 @@ In the context of our math evaluation anxiety questionnaire:
 
 ## Confirmative Factor Analysis (CFA)
 
-This appendix provides a detailed mathematical derivation of a Confirmatory Factor Analysis (CFA) model. The observed variables are nine items related to mathematical anxiety, which are hypothesized to load onto two latent factors: **Test Anxiety (TA)** and **Learning Anxiety (LA)**.
+This appendix provides a detailed mathematical derivation of a Confirmatory Factor Analysis (CFA) model. The observed variables are nine items related to mathematical anxiety, which are hypothesized to load onto two latent factors: \textbf{Test Anxiety (TA)} and \textbf{Learning Anxiety (LA)}.
 
 **1. Latent Factors and Observed Variables**
 
@@ -2475,7 +3205,7 @@ $$
 \mathbf{y} = \boldsymbol{\nu} + \boldsymbol{\Lambda} \boldsymbol{\eta} + \boldsymbol{\epsilon}
 $$
 
-Given our hypothesized factor structure, the loading matrix $\boldsymbol{\Lambda}$ has a specific form with many elements fixed to zero. To ensure model identification, we need to set the scale of each latent variable. This is typically done by **factor standardization**, where the variance of the latent factor is fixed to 1, or by **marker variable** method, where one loading per factor is fixed to 1. We will use the latter.
+Given our hypothesized factor structure, the loading matrix $\boldsymbol{\Lambda}$ has a specific form with many elements fixed to zero. To ensure model identification, we need to set the scale of each latent variable. This is typically done by \textbf{factor standardization}, where the variance of the latent factor is fixed to 1, or by \textbf{marker variable} method, where one loading per factor is fixed to 1. We will use the latter.
 
 Let us define:
 
@@ -2579,11 +3309,11 @@ Total free parameters: $t = 7 + 3 + 9 = 19$.
 
 The number of non-redundant elements in $\mathbf{S}$ is $\frac{9 \times (9+1)}{2} = 45$.
 
-Since $45 > 19$, the model is **over-identified** with $df = 45 - 19 = 26$ degrees of freedom. This is a necessary condition for identification, and with the scaling constraints we placed, the model is identified.
+Since $45 > 19$, the model is \textbf{over-identified} with $df = 45 - 19 = 26$ degrees of freedom. This is a necessary condition for identification, and with the scaling constraints we placed, the model is identified.
 
 **7. Maximum Likelihood Estimation of Parameters**
 
-This derivation has outlined the complete mathematical setup for a two-factor CFA model of mathematical anxiety. The model posits that the covariation among the nine observed items can be explained by two correlated latent factors. The next step would be to use an estimation algorithm (e.g., Maximum Likelihood) to find the parameter values that minimize the difference between $\boldsymbol{\Sigma}(\boldsymbol{\theta})$ and the sample covariance matrix $\mathbf{S}$, and then assess the model's fit to the data.
+This derivation has outlined the complete mathematical setup for a two-factor CFA model of mathematical anxiety. The model posits that the covariance among the nine observed items can be explained by two correlated latent factors. The next step would be to use an estimation algorithm (e.g., Maximum Likelihood) to find the parameter values that minimize the difference between $\boldsymbol{\Sigma}(\boldsymbol{\theta})$ and the sample covariance matrix $\mathbf{S}$, and then assess the model's fit to the data.
 
 The goal is to find the parameter values $\hat{\boldsymbol{\theta}}$ that make the model-implied covariance matrix $\boldsymbol{\Sigma}(\boldsymbol{\theta})$ most likely to have produced the observed sample data.
 
@@ -2961,101 +3691,10 @@ The model is identified if:
 -   The model meets the order condition and rank condition for identification
 
 
-
-
-
-
 ## WLSMV for Likert Data in SEM
 
 
-The Weighted Least Squares Mean and Variance Adjusted (WLSMV) estimator is a robust estimation method designed specifically for structural equation modeling (SEM) with categorical or ordinal data, particularly multi-item Likert scales. 
-
-When observed variables are ordinal (e.g., Likert scales from 1 "Strongly Disagree" to 5 "Strongly Agree"), treating them as continuous and calculating a Pearson correlation is misleading simply because the distances between points 1, 2, 3, 4, and 5 are not equal. Using Pearson correlation on such data can underestimate the true strength of the relationship and lead to incorrect model fit statistics and parameter estimates. In other words, we need a better **correlation coefficient matrix** to capture the relationship between ordinal categorical variables.
-
-### Polychoric Correlation 
-
-* **Assumption**: It assumes that your observed ordinal categories are crude representations of an underlying continuous and <font color= "red">**\color{red}normally distributed**</font> latent variable. For example, behind the 5-point "Satisfaction" score is a continuous spectrum of satisfaction.
-
-* **Method**: It estimates the correlation between these two <font color = "red">**unobserved**</font><font color = "blue"> **continuous**</font> <font color = "purple"> **latent**</font> variables. It does this by using the observed ordinal data and the thresholds that cut the continuous distributions into the observed categories.
-
-
-* **Threshold Estimation**: The method estimates thresholds $\boldsymbol{\tau}$ that define the boundaries between response categories:
-
-$$
-x_i = k \quad \text{if} \quad \tau_{k-1} < x_i^* \leq \tau_k
-$$
-
-**Steps for Calculating Polychoric Correlation**
-
-The process is explained with two hypothetical latent variables. The polychoric correlation between two ordinal variables, X and Y, is calculated by estimating the correlation of their unobserved continuous counterparts, X* and Y*. This is typically done using Maximum Likelihood Estimation (MLE).
-
-**Step 1**:  Estimating the thresholds for $X^*$ and $Y^*$ **separately** for each variable **before** the correlation is computed. For example, Assume that in $X$, 10% answered "1", 20% answered "2", 40% answered "3", 20% answered "4", 10% answered "5". Its thresholds, denoted by  [$\tau_{x_1}, \tau_{x_2}, \tau_{x_3}, \tau_{x_4}$], are estimated in the following by finding the z-scores from the **standard normal distribution** that correspond to these cumulative percentages..
-
-  + The first threshold, $\tau_{x_1}$, is the z-score where the cumulative probability is 0.10 (10%).
-  + The second threshold, $\tau_{x_2}$, is the z-score where the cumulative probability is 0.10 + 0.20 = 0.30.
-  + The third threshold, $\tau_{x_3}$ is the z-score where the cumulative probability is 0.30 + 0.40 = 0.70.
-  + The fourth threshold, $\tau_{x_4}$, is the z-score where the cumulative probability is 0.70 + 0.20 = 0.90.
-
-  The thresholds for Variable Y, denoted by [$\tau_{y_1}, \tau_{y_2}, \tau_{y_3}, \tau_{y_4}$], are estimated similarly.
-  
- 
-**Step 2**: Set Up the Likelihood Function - we look at the joint frequency of responses for each cell in the contingency table of $X$ and $Y$ (i.e., observed joint distribution of $X$ and $Y$):
-
-|X / Y |	**1** |	**2**	| **3**	| **4**	| **5**|
-|:-----|:---|:---|:---|:---|:---|
-| **1**	| 5%	| 2%	| 1%	| 1%	| 1%| 
-| **2**	| 3%	| 10%	| 5%	| 2%	| 0%| 
-| **3**	| 1%	| 5%	| 15%	| 10%	| 9%| 
-| **4**	| 1%	| 2%	| 8%	| 10%	| 9%| 
-| **5**	| 0%	| 1%	| 1%	| 7%	| 11%| 
-
-The probability of observing a response in a specific cell (e.g., X=3 and Y=4) is theorized to be the volume under the **bivariate normal distribution** curve that lies between the corresponding thresholds for X and Y.
-  
-  + $P(X=3, Y=4) = \Phi_2(\tau_{x_3}, \tau_{y_4}: \rho) - \Phi_2(\tau_{x_2}, \tau_{y_4}: \rho) -\Phi_2(\tau_{x_3}, \tau_{y_3}: \rho) + \Phi_2(\tau_{x_2}, \tau_{y_3}: \rho)$, where $\Phi_2(a, b: \rho)$ is the cumulative distribution function (CDF) of the standard bivariate normal distribution with correlation $\rho$ (the unknown **polychoric correlation coefficient** to be estimated).
-
-  + The Likelihood Function (L) is the product of the probabilities for all observed cells, raised to the power of the observed counts (or, more commonly, the log-likelihood is the sum of the counts multiplied by the log of the probabilities).
-  
-  $$
-  \mathcal {L}(\rho|data, \tau_x, \tau_y) = \prod_{1\le i, j \le 5}\left[P(X=i, Y=j)\right]^{n_{ij}}
-  $$
-
-**Step 3**: The final step is to find the value of the **polychoric correlation coefficient $\rho$ (rho)** that maximizes this likelihood function.
-
-
-
-**From Pairwise to Matrix**
-
-To form the full polychoric correlation matrix, this exact process is repeated for every single pair of variables in your dataset.
-
-* For 3 variables (A, B, C), you calculate:
-
-  + $\rho_{AB}$ (correlation between A and B)
-  + $\rho_{AC}$ (correlation between A and C)
-  + $\rho_{BC}$ (correlation between B and C)
-
-* These are then placed into a symmetric correlation matrix.
-
-|  | A |	B |	C |
-|:----|:----|:----|:-----|
-| **A**	| 1	| $\rho_{AB}$	| $\rho_{AC}$| 
-| **B**	| $\rho_{AB}$	| 1	| $\rho_{BC}$| 
-| **C**	| $\rho_{AC}$	| $\rho_{BC}$	| 1| 
-
-
-
-
-
-* **Diagonal Weight Matrix**: WLSMV employs a diagonal weight matrix containing asymptotic variances of polychoric correlations, making it computationally efficient while maintaining robustness.
-
-* **Mean and Variance Adjustment**: The estimator incorporates scaling corrections to the test statistics, providing better approximation to $\chi^2$ distributions with small to moderate sample sizes.
-
-
-
-
-
-
-
-
+The Weighted Least Squares Mean and Variance Adjusted (WLSMV) estimator is a robust estimation method designed specifically for structural equation modeling (SEM) with categorical or ordinal data, particularly multi-item Likert scales. When working with ordered categorical indicators (e.g., Likert-type items with 2-7 response categories), traditional maximum likelihood (ML) estimation assumes continuous normally distributed variables, which violates the discrete nature of ordinal data.
 
 ### Mathematical Foundation
 
@@ -3074,10 +3713,23 @@ F_{WLSMV} = (\mathbf{s} - \boldsymbol{\sigma}(\boldsymbol{\theta}))' \mathbf{W}^
 $$
 
 * $\mathbf{s}$ is the vector of sample polychoric correlations and threshold estimates
-
 * $\boldsymbol{\sigma}(\boldsymbol{\theta})$ contains the model-implied correlations and thresholds
-
 * $\mathbf{W}$ is the consistent asymptotic covariance matrix of $\mathbf{s}$
+
+
+**Key Features for Multi-item Likert Data**
+
+* **Polychoric Correlations**: WLSMV utilizes polychoric correlations that estimate the linear relationship between underlying continuous variables, providing more accurate estimates than Pearson correlations for ordinal data.
+* **Threshold Estimation**: The method estimates thresholds $\boldsymbol{\tau}$ that define the boundaries between response categories:
+
+$$
+x_i = k \quad \text{if} \quad \tau_{k-1} < x_i^* \leq \tau_k
+$$
+
+* **Diagonal Weight Matrix**: WLSMV employs a diagonal weight matrix containing asymptotic variances of polychoric correlations, making it computationally efficient while maintaining robustness.
+
+* **Mean and Variance Adjustment**: The estimator incorporates scaling corrections to the test statistics, providing better approximation to $\chi^2$ distributions with small to moderate sample sizes.
+
 
 
 **Introduction to the Estimator**
