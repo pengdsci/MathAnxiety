@@ -1,0 +1,67 @@
+---
+title: "Untitled"
+author: "Cheng Peng"
+date: "2025-10-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+# Set seed for reproducibility
+set.seed(123)
+
+# Create a mixture of two bivariate normal distributions
+n <- 5000
+
+# First component: positively correlated
+n1 <- n %/% 2
+mu1 <- c(0, 0)
+sigma1 <- matrix(c(1, 0.9, 0.9, 1), nrow = 2)
+component1 <- MASS::mvrnorm(n1, mu1, sigma1)
+
+# Second component: negatively correlated  
+n2 <- n - n1
+mu2 <- c(0, 0)
+sigma2 <- matrix(c(1, -0.9, -0.9, 1), nrow = 2)
+component2 <- MASS::mvrnorm(n2, mu2, sigma2)
+
+# Combine the components
+data <- rbind(component1, component2)
+
+# Plot the results
+par(mfrow = c(2, 2))
+
+# Scatter plot
+plot(data, pch = 20, cex = 0.5, col = rgb(0, 0, 0, 0.3),
+     main = "Non-bivariate Normal with Normal Marginals",
+     xlab = "X ~ N(0,1)", ylab = "Y ~ N(0,1)")
+
+# Marginal histograms
+hist(data[,1], main = "Marginal X", xlab = "X", freq = FALSE)
+curve(dnorm(x), add = TRUE, col = "red", lwd = 2)
+
+hist(data[,2], main = "Marginal Y", xlab = "Y", freq = FALSE)  
+curve(dnorm(x), add = TRUE, col = "red", lwd = 2)
+
+# Q-Q plots for normality check
+qqnorm(data[,1], main = "Q-Q Plot for X")
+qqline(data[,1], col = "red")
+
+par(mfrow = c(1, 1))
+
+# Test marginal normality
+cat("Shapiro-Wilk test for X: p-value =", shapiro.test(data[,1])$p.value, "\n")
+cat("Shapiro-Wilk test for Y: p-value =", shapiro.test(data[,2])$p.value, "\n")
+
+# Test bivariate normality using Mardia's test (from MVN package)
+if (!require(MVN)) install.packages("MVN")
+library(MVN)
+mardia_test <- mvn(data, mvn_test = "hz")
+cat("\nMardia's test for bivariate normality: p-value =", 
+    mardia_test$multivariateNormality$p.value, "\n")
+```
