@@ -2,6 +2,7 @@
 title: "Mathematics Anxiety Survey Report"
 author: "Cheng Peng & Laura Pyott"
 date: "West Chester University"
+institution: '<img src= "QR.png">'
 output:
   html_document: 
     toc: yes
@@ -114,6 +115,29 @@ body { background-color:white; }
 p { background-color:white; }
 
 }
+
+/********** DT Table css **********/
+/* purple-theme.css */
+.dark-purple-table {
+  background-color: #2d1b3c !important;
+  color: #e0b0ff !important;
+}
+
+.dark-purple-table td {
+  background-color: #4a2c5a !important;
+  color: #e0b0ff !important;
+  border-color: #6b3f8c !important;
+}
+
+.dark-purple-table th {
+  background-color: #6b3f8c !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+
+.dark-purple-table tr:hover td {
+  background-color: #5d3b77 !important;
+}
 ```
 
 ```{r setup, include=FALSE}
@@ -212,7 +236,19 @@ if (!require("RColorBrewer")) {
   install.packages("RColorBrewer")
   library(RColorBrewer)
 }
-## 
+if (!require("DT")) {
+  install.packages("DT")
+  library(DT)
+}
+if (!require("reactable")) {
+  install.packages("reactable")
+  library(reactable)
+}
+if (!require("htmltools")) {
+  install.packages("htmltools")
+  library(htmltools)
+}
+## library(htmltools
 knitr::opts_chunk$set(echo = TRUE,       # include code chunk in the output file
                       warning = FALSE,   # sometimes, you code may produce warning messages,
                                          # you can choose to include the warning messages in
@@ -224,6 +260,10 @@ knitr::opts_chunk$set(echo = TRUE,       # include code chunk in the output file
                       )  
 ```
 
+
+```{r echo=FALSE, fig.align='center', out.width="15%"}
+include_graphics("QR.png")
+```
 \
 
 # Introduction
@@ -983,7 +1023,7 @@ Demographic.bar <-function(in.cat, varname){
                   text = paste("<b>Frequency Distributions of Demographics</b>"),
                   font = list(color = 'gold',
                               family = 'arial',
-                              size = 20)),
+                              size = 24)),
     xaxis = list(title = "Categories", 
                  color = "white", 
                  tickfont = list(color = 'white')),
@@ -1056,9 +1096,9 @@ subplot(g.math.level, g.modality, nrows = 1, titleX = FALSE, titleY = TRUE, marg
   layout(
     annotations = list(
       list(x = 0.35, y = 1.1, text = "Math Course Level", 
-           xref = "paper", yref = "paper", showarrow = FALSE, font = list(size = 14)),
+           xref = "paper", yref = "paper", showarrow = FALSE, font = list(size = 14, color = "white")),
       list(x = 0.75, y = 1.1, text = "Learning Modality", 
-           xref = "paper", yref = "paper", showarrow = FALSE, font = list(size = 14))
+           xref = "paper", yref = "paper", showarrow = FALSE, font = list(size = 14, color = "white"))
     ),
     showlegend = FALSE
   )
@@ -1074,7 +1114,7 @@ A student's demographic profile doesn't determine their math anxiety, but it sig
 
 This is the anxiety a student feels when their mathematical ability is being formally or informally assessed. The primary fear is not of the math itself, but of the negative consequences of performing poorly. It's performance-oriented. The stress comes from the situation of being evaluated, not necessarily from the content.
 
-```{r fig.align='center', fig.width=8, fig.height=4}
+```{r echo = FALSE, fig.align='center', fig.width=8, fig.height=4}
 ## plotly for anxiety vs gender and other categorical demographic factor
 gender.plotly <- function(in.var1, in.var2){
       gender.anxiety <- plot_ly(final.anxiety.dat, 
@@ -1095,7 +1135,7 @@ gender.plotly <- function(in.var1, in.var2){
                   text = paste("<b>MEA: Gender vs ", in.var2,"</b>"),
                   font = list(color = 'gold',
                               family = 'arial',
-                              size = 20)),
+                              size = 24)),
          xaxis = list(title = "", color = "white"),
          yaxis = list(title = "Evaluation Anxiety Score", color = "white"),
          boxmode = "group",
@@ -1129,7 +1169,7 @@ gender.race = gender.plotly("race", "Race")
 gender.race
 ```
 
-```{r fig.align='center', fig.width=6, fig.height=4}
+```{r fig.align='center', fig.width=8, fig.height=4}
 gender.class = gender.plotly("class", "Class")
 gender.class
 ```
@@ -1176,7 +1216,7 @@ gender.plotly <- function(in.var1, in.var2){
                   text = paste("<b>MLA: Gender vs ", in.var2,"</b>"),
                   font = list(color = 'gold',
                               family = 'arial',
-                              size = 20)),   
+                              size = 24)),   
          xaxis = list(title = "", color = "white"),
          yaxis = list(title = "Learning Anxiety Score", color = "white"),
          boxmode = "group",
@@ -1211,27 +1251,27 @@ gender.plotly <- function(in.var1, in.var2){
 
 ```
 
-```{r fig.align='center', fig.width=6, fig.height=4}
+```{r fig.align='center', fig.width=8, fig.height=4}
 gender.math.level.mla = gender.plotly("math.level", "Math Course Level")
 gender.math.level.mla
 ```
 
-```{r fig.align='center', fig.width=6, fig.height=4}
+```{r fig.align='center', fig.width=8, fig.height=4}
 gender.race.mla = gender.plotly("race", "Race")
 gender.race.mla
 ```
 
-```{r fig.align='center', fig.width=6, fig.height=4}
+```{r fig.align='center', fig.width=8, fig.height=4}
 gender.class.mla = gender.plotly("class", "Class")
 gender.class.mla
 ```
 
-```{r fig.align='center', fig.width=6, fig.height=4}
+```{r fig.align='center', fig.width=8, fig.height=4}
 gender.major.mla = gender.plotly("major", "Major")
 gender.major.mla
 ```
 
-```{r fig.align='center', fig.width=6, fig.height=4}
+```{r fig.align='center', fig.width=8, fig.height=4}
 gender.modality.mla = gender.plotly("modality", "Modality")
 gender.modality.mla
 ```
@@ -1244,7 +1284,7 @@ A robust body of evidence, from foundational meta-analyses (Hembree, 1990) to co
 
 The following figure illustrates the relationship between gender and the two types of math anxiety: learning anxiety and evaluation anxiety.
 
-```{r fig.align='center', fig.width=6, fig.height=6}
+```{r fig.align='center', fig.width=8, fig.height=4}
 mea0 <- final.anxiety.dat[, c("sex", "Anxiety.mea.wt.pca")]
 mla0 <- final.anxiety.dat[, c("sex", "Anxiety.mla.wt.pca")]
 names(mea0) = c("sex", "anxiety.score")
@@ -1272,9 +1312,9 @@ fig <- plot_ly(df,
   layout(
     title = list(
                   text = paste("<b>Gender Gaps in Math Anxiety</b>"),
-                  font = list(color = 'gold',
+                  font = list(color = 'white',
                               family = 'arial',
-                              size = 20)),
+                              size = 24)),
     xaxis = list(title = "", color = "white"),
     yaxis = list(title = "Anxiety Score", color = "white"),
     boxmode = "group",
@@ -1301,7 +1341,7 @@ Our results are also consistent with existing results in literature.
 
 The following heatmap illustrates the pairwise correlations between anxiety levels, student-perceived teaching strategies, and other associated cognitive factors. A negative correlation between anxiety and another composite score (shown in blue) indicates that anxiety decreases as that composite score increases.
 
-```{r fig.align='center', fig.width=8, fig.height=4}
+```{r fig.align='center', fig.width=8, fig.height=6}
 
 var.name <-c( "Anxiety.mea.wt.pca", "Anxiety.mla.wt.pca", "SelfEfficacy.wt.pca", "Technology.wt.pca",
               "Cooporative.wt.pca", "Deductive.wt.pca", "Demonstration.wt.pca",
@@ -1430,7 +1470,7 @@ gg <- ggplot(anxiety.sex.teach, aes(x = anxety.index, y = teach.index, color = T
   geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
   facet_wrap(~ gender.anx.type, ncol = 2, nrow = 2) +
   scale_color_viridis_d(option = "plasma") +
-  labs(title = "Multi-Panel Loess Plots:",
+  labs(title = "Perceived Teaching Style vs Math Anxiety ",
        x = "Math Anxiety Index",
        y = "Teaching Index") +
   theme_minimal() +
@@ -1446,7 +1486,9 @@ gg <- ggplot(anxiety.sex.teach, aes(x = anxety.index, y = teach.index, color = T
     plot.background = element_rect(fill = "#291940", color = "#291940"),
     strip.background = element_rect(fill = "#291940"),
     strip.text = element_text(face = "bold", color = "white"),
-    plot.title = element_text(hjust = 0.5, color = "white"),
+    plot.title = element_text(hjust = 0.5, color = "gold", size = 16),
+    axis.title.x = element_text(color = "white", size = 12),
+    axis.title.y = element_text(color = "white", size = 12),
     
     # Tick labels
     axis.text = element_text(color = "white", size = 11),
@@ -1490,7 +1532,7 @@ gg <- ggplot(efficay.teach, aes(x = efficacy.index, y = teach.index, color = Tea
   geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
   facet_wrap(~  gender, ncol = 2, nrow = 2) +
   scale_color_viridis_d(option = "plasma") +
-  labs(title = "Multi-Panel Loess Plots:",
+  labs(title = "Perceived Teaching Style vs Self-efficacy",
        x = "Math Self-efficacy",
        y = "Teaching Index") +
   theme_minimal() +
@@ -1506,12 +1548,14 @@ gg <- ggplot(efficay.teach, aes(x = efficacy.index, y = teach.index, color = Tea
     plot.background = element_rect(fill = "#291940", color = "#291940"),
     strip.background = element_rect(fill = "#291940"),
     strip.text = element_text(face = "bold", color = "white"),
-    plot.title = element_text(hjust = 0.5, color = "white"),
+    plot.title = element_text(hjust = 0.5, color = "gold"),
     
     # Tick labels
     axis.text = element_text(color = "white", size = 11),
     axis.text.x = element_text(color = "white", angle = 0),
     axis.text.y = element_text(color = "white"),
+    axis.title.x = element_text(color = "white", size = 12),
+    axis.title.y = element_text(color = "white", size = 12),
     
     # Legend
     legend.title = element_text(color = "white", size = 13, face = "bold"),
@@ -1530,7 +1574,7 @@ ggplotly(gg)
 
 ## Anxiety vs Other Factors
 
-```{r fig.align='center', fig.width=8, fig.height=4}
+```{r fig.align='center', fig.width=8, fig.height=7}
 # define a long table for group plots
 mea.other <- data.frame(
   anxiety.index <- rep(all.composite.scores$Anxiety.mea, 4),
@@ -1560,7 +1604,7 @@ gg <- ggplot(anxitey.other, aes(x = anxiety.index, y = factor.index, color = Rel
   geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
   facet_wrap(~ gender, ncol = 2, nrow = 2) +
   scale_color_viridis_d(option = "plasma") +
-  labs(title = "Multi-Panel Loess Plots:",
+  labs(title = "Other Factors v.s. Math Anxiety",
        x = "Math Learning Anxiety",
        y = "Other Factors") +
   theme_minimal() +
@@ -1576,12 +1620,14 @@ gg <- ggplot(anxitey.other, aes(x = anxiety.index, y = factor.index, color = Rel
     plot.background = element_rect(fill = "#291940", color = "#291940"),
     strip.background = element_rect(fill = "#291940"),
     strip.text = element_text(face = "bold", color = "white"),
-    plot.title = element_text(hjust = 0.5, color = "white"),
+    plot.title = element_text(hjust = 0.5, color = "white", size = 18),
     
     # Tick labels
     axis.text = element_text(color = "white", size = 11),
     axis.text.x = element_text(color = "white", angle = 0),
     axis.text.y = element_text(color = "white"),
+    axis.title.x = element_text(color = "white", size = 12),
+    axis.title.y = element_text(color = "white", size = 12),
     
     # Legend
     legend.title = element_text(color = "white", size = 13, face = "bold"),
@@ -1864,7 +1910,7 @@ gg <- ggplot(level01.mea, aes(x = anxety.index, y = teach.index, color = Teachin
     plot.background = element_rect(fill = "#291940", color = "#291940"),
     strip.background = element_rect(fill = "#291940"),
     strip.text = element_text(face = "bold", color = "white"),
-    plot.title = element_text(hjust = 0.5, color = "white"),
+    plot.title = element_text(hjust = 0.5, size = 18, color = "white", face = "bold"),
     
     # Tick labels
     axis.text = element_text(color = "white", size = 11),
@@ -1909,7 +1955,7 @@ gg <- ggplot(level02.mea, aes(x = anxety.index, y = teach.index, color = Teachin
     plot.background = element_rect(fill = "#291940", color = "#291940"),
     strip.background = element_rect(fill = "#291940"),
     strip.text = element_text(face = "bold", color = "white"),
-    plot.title = element_text(hjust = 0.5, color = "white"),
+    plot.title = element_text(hjust = 0.5, size = 18, color = "white", face = "bold"),
     
     # Tick labels
     axis.text = element_text(color = "white", size = 11),
@@ -1993,7 +2039,7 @@ gg <- ggplot(level01.mla, aes(x = anxety.index, y = teach.index, color = Teachin
     plot.background = element_rect(fill = "#291940", color = "#291940"),
     strip.background = element_rect(fill = "#291940"),
     strip.text = element_text(face = "bold", color = "white"),
-    plot.title = element_text(hjust = 0.5, color = "white"),
+    plot.title = element_text(hjust = 0.5, size = 18, color = "white", face = "bold"),
     
     # Tick labels
     axis.text = element_text(color = "white", size = 11),
@@ -2040,7 +2086,7 @@ gg <- ggplot(level02.mla, aes(x = anxety.index, y = teach.index, color = Teachin
     plot.background = element_rect(fill = "#291940", color = "#291940"),
     strip.background = element_rect(fill = "#291940"),
     strip.text = element_text(face = "bold", color = "white"),
-    plot.title = element_text(hjust = 0.5, color = "white"),
+    plot.title = element_text(hjust = 0.5, size = 18, color = "white", face = "bold"),
     
     # Tick labels
     axis.text = element_text(color = "white", size = 11),
@@ -2101,7 +2147,7 @@ gg <- ggplot(new.anxity.selfefficacy, aes(x = efficay.index, y = anxiety.index, 
     plot.background = element_rect(fill = "#291940", color = "#291940"),
     strip.background = element_rect(fill = "#291940"),
     strip.text = element_text(face = "bold", color = "white"),
-    plot.title = element_text(hjust = 0.5, color = "white"),
+    plot.title = element_text(hjust = 0.5, size = 18, color = "white", face = "bold"),
     
     # Tick labels
     axis.text = element_text(color = "white", size = 11),
@@ -2356,12 +2402,14 @@ level02.data <-group.strategy.loess[level02.id , ]
 level02.data$gender.level <- paste0(level02.data$gender, " & ", level02.data$math.level)
 ```
 
-```{r}
+```{r fig.align='center', fig.width=8, fig.height=4}
+my_colors <- c("#FF7F00", "#FFFF33")
+##
 gg <- ggplot(level01.data, aes(x = mla.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
   #geom_point(alpha = 0.5, size = 1.5) +
   geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
   facet_wrap(~ gender.level, ncol = 2, nrow = 2) +
-  scale_color_viridis_d(option = "plasma") +
+  scale_color_manual(values = my_colors)  +
   labs(title = "Loess Plots: Teaching Strategy vs Learning Anxiety",
        x = "Math Learning Anxiety",
        y = "Teaching Strategy Index") +
@@ -2400,11 +2448,12 @@ ggplotly(gg)
 
 
 ```{r fig.align='center', fig.width=8, fig.height=4}
+my_colors <- c("#FF7F00", "#FFFF33")
 gg <- ggplot(level02.data, aes(x = mla.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
   #geom_point(alpha = 0.5, size = 1.5) +
   geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
   facet_wrap(~ gender.level, ncol = 2, nrow = 2) +
-  scale_color_viridis_d(option = "plasma") +
+  scale_color_manual(values = my_colors)  +
   labs(title = "Loess Plots: Teaching Strategy vs Learning Anxiety",
        x = "Math Learning Anxiety",
        y = "Teaching Strategy Index") +
@@ -2468,11 +2517,12 @@ level02.data.mea$gender.level <- paste0(level02.data.mea$gender, " & ", level02.
 
 
 ```{r fig.align='center', fig.width=8, fig.height=4}
+my_colors <- c("#FF7F00", "#FFFF33")
 gg <- ggplot(level01.data.mea, aes(x = mea.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
   #geom_point(alpha = 0.5, size = 1.5) +
   geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
   facet_wrap(~ gender.level, ncol = 2, nrow = 2) +
-  scale_color_viridis_d(option = "plasma") +
+  scale_color_manual(values = my_colors)  +
   labs(title = "Loess Plots: Teaching Strategy vs Test Anxiety",
        x = "Math Test Anxiety",
        y = "Teaching Strategy Index") +
@@ -2513,12 +2563,13 @@ ggplotly(gg)
 
 
 ```{r fig.align='center', fig.width=8, fig.height=4}
+my_colors <- c("#FF7F00", "#FFFF33")
 ###
 gg <- ggplot(level02.data.mea, aes(x = mea.index, y = factor.index, color = RelatedFactors, group = RelatedFactors)) +
   #geom_point(alpha = 0.5, size = 1.5) +
   geom_smooth(method = "loess", span = 0.75, se = FALSE, size = 1) +
   facet_wrap(~ gender.level, ncol = 2, nrow = 2) +
-  scale_color_viridis_d(option = "plasma") +
+  scale_color_manual(values = my_colors)  +
   labs(title = "Loess Plots: Teaching Strategy vs Test Anxiety",
        x = "Math Test Anxiety",
        y = "Teaching Strategy Index") +
@@ -2664,9 +2715,137 @@ set.seed(311)  # for reproducibility
 boot.results <- boot(mea.lm.data, boot.coef, R = 1000)
 ## bootstrap CI
 all.cis <- get.all.boot.cis(boot.results)
-InferenceTable <- round(cbind(summary(stepwise.mea.model)$coef, all.cis),4)
-print(InferenceTable) 
+InferenceTable01 <- round(cbind(summary(stepwise.mea.model)$coef, all.cis),4)
+#print(InferenceTable) 
 ```
+
+```{r}
+InterActiveTable <- function(indat){
+# Create table with complete styling
+datatable(indat,
+          options = list(
+            pageLength = 15,
+            dom = 'Bfrtip',
+            initComplete = JS(
+              "function(settings, json) {",
+              "$(this.api().table().container()).css({'background-color': '#2d1b3c'});",
+              "$(this.api().table().container()).find('td').css({'background-color': '#4a2c5a', 'color': '#EFBF04'});",
+              "$(this.api().table().header()).css({'background-color': '#6b3f8c', 'color': 'white'});",
+              
+              
+              "$('.dataTables_wrapper').css('color', '#EFBF04');",
+              
+             
+              "$('.dataTables_filter input').css({",
+              "  'background-color': '#4a2c5a',",
+              "  'color': '#EFBF04',",
+              "  'border': '2px solid #6b3f8c',",
+              "  'border-radius': '4px',",
+              "  'padding': '5px',",
+              "  'margin-left': '10px'",
+              "});",
+              "$('.dataTables_filter label').css({",
+              "  'color': '#EFBF04',",
+              "  'font-weight': 'bold'",
+              "});",
+              
+              
+              "$('.dataTables_filter input').attr('placeholder', 'Search...');",
+              "$('.dataTables_filter input').css('placeholder', {'color': '#8a6ca3'});",
+              
+            
+              "$('.dataTables_length label').css({",
+              "  'color': '#EFBF04',",
+              "  'font-weight': 'bold'",
+              "});",
+              "$('.dataTables_length select').css({",
+              "  'background-color': '#4a2c5a',",
+              "  'color': '#EFBF04',",
+              "  'border': '2px solid #6b3f8c',",
+              "  'border-radius': '4px',",
+              "  'padding': '5px',",
+              "  'margin': '0 5px'",
+              "});",
+              "$('.dataTables_length select option').css({",
+              "  'background-color': '#4a2c5a',",
+              "  'color': '#EFBF04'",
+              "});",
+              
+              
+              "$('.dataTables_info').css({",
+              "  'color': '#EFBF04',",
+              "  'padding': '10px 5px',",
+              "  'font-size': '14px'",
+              "});",
+              
+              
+              "$('.dataTables_paginate').css({",
+              "  'margin-top': '10px'",
+              "});",
+              
+              
+              "$('.paginate_button').css({",
+              "  'color': '#EFBF04 !important',",
+              "  'background-color': '#4a2c5a !important',",
+              "  'border': '2px solid #6b3f8c !important',",
+              "  'border-radius': '4px !important',",
+              "  'margin': '0 2px !important',",
+              "  'padding': '5px 10px !important'",
+              "});",
+              
+             
+              "$('.paginate_button.current').css({",
+              "  'color': 'white !important',",
+              "  'background-color': '#6b3f8c !important',",
+              "  'border': '2px solid #8a5cb8 !important',",
+              "  'font-weight': 'bold !important'",
+              "});",
+              
+              
+              "$('.paginate_button:hover').css({",
+              "  'color': 'white !important',",
+              "  'background-color': '#5d3b77 !important',",
+              "  'border': '2px solid #8a5cb8 !important',",
+              "  'cursor': 'pointer !important'",
+              "});",
+              
+             
+              "$('.paginate_button.disabled').css({",
+              "  'color': '#8a6ca3 !important',",
+              "  'background-color': '#3a2450 !important',",
+              "  'border': '2px solid #4a2c5a !important',",
+              "  'opacity': '0.5 !important'",
+              "});",
+              
+              
+              "$(this.api().table().container()).css({",
+              "  'border': '2px solid #6b3f8c',",
+              "  'border-radius': '8px',",
+              "  'overflow': 'hidden'",
+              "});",
+              
+              
+              "$('.dataTables_wrapper').css({",
+              "  'padding': '20px',",
+              "  'background-color': '#2d1b3c'",
+              "});",
+              "}"
+            )
+          )) # %>%
+  #formatStyle(columns = 1:ncol(data),
+  #            backgroundColor = '#4a2c5a',
+              #color = '#e0b0ff',
+  #            color = 'gold')
+}
+```
+
+```{r}
+reg.result01 <- as.data.frame(InferenceTable01)
+# Create table with custom styling
+InterActiveTable(reg.result01)
+```
+
+
 
 The above table revealed several significant predictors of math evaluation anxiety. Higher **self-efficacy** was strongly associated with lower anxiety ($\beta = -0.577, p < 0.001$), indicating that students who are more confident in their mathematical abilities experience less **evaluation-related stress**. Similarly, **integrative instruction approach** showed a negative relationship with anxiety ($\beta = -0.178, p < 0.001$), implying that this teaching method may help reduce student anxiety. **Course level** also played a role: students enrolled in math03 (calc A and brief Calc) ($\beta = 0.276, p = 0.040$) and math04 (above Calc A) ($\beta = 0.363, p = 0.023$) courses exhibited higher anxiety compared to the reference group, while other course levels were not significant. **Gender** was a significant factor, with male students reporting lower anxiety than females ($\beta = -0.344, p < 0.001$). Finally, **technology use** was negatively associated with anxiety ($\beta = -0.137, p < 0.001$), indicating that greater engagement with technology corresponds to reduced math evaluation anxiety.
 
@@ -2708,9 +2887,18 @@ set.seed(312)  # for reproducibility
 boot.results.ctrd <- boot(anxiety.reg.data, boot.coef.ctrd, R = 1000)
 # Combine the linear regression output with the bootstrap CI
 all.ctrd.cis <- get.all.boot.cis(boot.results.ctrd )
-InferenceTable <- round(cbind(summary(best.subset.ctrd)$coef, all.ctrd.cis ),4)
-print(InferenceTable) 
+InferenceTable02 <- round(cbind(summary(best.subset.ctrd)$coef, all.ctrd.cis ),4)
+#print(InferenceTable) 
+
+reg.result02 <- as.data.frame(InferenceTable02)
+# Create table with custom styling
+InterActiveTable(reg.result02)
 ```
+
+
+
+
+
 
 The results above are consistent with the previous regression that used individual teaching strategies as predictors. The key difference is that the **integrative teaching approach** was significant in the former model, whereas **student-centered** teaching strategies are significant in the current one. However, since an integrative approach is a specific type of student-centered strategy, the models ultimately yield congruent findings.
 
@@ -2764,8 +2952,12 @@ set.seed(312)  # for reproducibility
 boot.results.mla<- boot(mla.lm.data, boot.coef.mla, R = 1000)
 ## combine regular regression output and the bootstrap CI
 all.cis.mla <- get.all.boot.cis(boot.results.mla)
-InferenceTable <- round(cbind(summary(MLA.model)$coef, all.cis.mla),4)
-print(InferenceTable) 
+InferenceTable03 <- round(cbind(summary(MLA.model)$coef, all.cis.mla),4)
+#print(InferenceTable) 
+
+reg.result03 <- as.data.frame(InferenceTable03)
+# Create table with custom styling
+InterActiveTable(reg.result03)
 ```
 
 The above results indicate that **Self-Efficacy**, **Technology use**, **Demonstration**, and **Lecture-based** teaching strategies are significant negative predictors of anxiety. Specifically, higher self-efficacy ($\beta = -0.40, p < .001$) and greater use of **technology** in learning ($\beta = -0.11, p < .001$) are associated with lower levels of math learning anxiety. Similarly, more frequent use of **demonstrative** ($\beta = -0.10, p = .006$) and **lecture approaches** ($\beta = -0.14, p < .001$) correspond with decreased anxiety.
@@ -2811,8 +3003,14 @@ set.seed(312)  # for reproducibility
 boot.results.ctrd <- boot(mla.lm.data.ctrd, boot.coef.mla.ctrd, R = 1000)
 ## combining bootstrap CIs with the default output in the lm()
 all.ctrd.cis <- get.all.boot.cis(boot.results.ctrd )
-InferenceTable <- round(cbind(summary(MLA.model.ctrd)$coef, all.ctrd.cis ),4)
-print(InferenceTable) 
+InferenceTable04 <- round(cbind(summary(MLA.model.ctrd)$coef, all.ctrd.cis ),4)
+#print(InferenceTable) 
+```
+
+```{r}
+reg.result04 <- as.data.frame(InferenceTable04)
+# Create table with custom styling
+InterActiveTable(reg.result04)
 ```
 
 The overall model was statistically significant, indicating that the set of predictors meaningfully explained variance in math learning anxiety.
