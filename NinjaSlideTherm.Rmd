@@ -196,7 +196,7 @@ class:inverse1, top
 ---
 class: transition0 center middle
 
-# <font color = "gold"><b>Epidemic of Math Anxiety</b></font>
+## <font color = "gold"><b>Epidemic of Math Anxiety</b></font>
 
 
 
@@ -223,7 +223,7 @@ include_graphics("img/AnotomyAxniety.png")
 ---
 class: transition0 center middle
 
-# <font color = "gold"><b>Design and Analysis Overview</b></font>
+## <font color = "gold"><b>Design and Analysis Overview</b></font>
 
 
 
@@ -241,7 +241,7 @@ include_graphics("img/SamplingMethodsAnalysis0.png")
 ---
 class: transition0 center middle
 
-# <font color = "gold"><b>Demographics</b></font>
+## <font color = "gold"><b>Demographics</b></font>
 
 
 ---
@@ -387,7 +387,7 @@ subplot(g.math.level, g.modality, nrows = 1, titleX = FALSE, titleY = TRUE, marg
 ---
 class: transition0 center middle
 
-# <font color = "gold"><b>Graphical Exploration: <br> Gender Gap in Math Anxiety</b></font>
+## <font color = "gold"><b>Graphical Exploration: <br> Gender Gap in Math Anxiety</b></font>
 
 
 
@@ -592,7 +592,7 @@ gender.modality
 ---
 class: transition0 center middle
 
-# <font color = "gold"><b>Graphical Exploration:<br> Student-Perceived Teaching Strategies</b></font>
+## <font color = "gold"><b>Graphical Exploration:<br> Student-Perceived Teaching Strategies</b></font>
 
 
 
@@ -762,7 +762,7 @@ ggplotly(gg)
 ---
 class: inverse00 center top
 
-#  Other Factors vs Math Anxiety
+###  Other Factors vs Math Anxiety
 
 
 ```{r echo = FALSE, fig.align='center', fig.width=8, fig.height=7}
@@ -840,7 +840,7 @@ ggplotly(gg)
 ---
 class: transition0 center middle
 
-# <font color = "gold"><b>Association Analysis: <br> Identify Driving Factors of Anxiety</b></font>
+## <font color = "gold"><b>Association Analysis: <br> Identify Driving Factors of Anxiety</b></font>
 
 
 
@@ -1229,7 +1229,7 @@ class: transition0 center middle
 ---
 class: inverse00 center middle
 
-## Six Insights Derived from the Data
+### Six Insights Derived from the Data
 
 ```{r  echo=FALSE, fig.align='center', out.width = '900px'}
 include_graphics("img/SixInsightsSummary0.png")
@@ -1241,7 +1241,7 @@ include_graphics("img/SixInsightsSummary0.png")
 class: inverse00 center middle
 
 
-# From Data to Intervention
+### From Data to Intervention
 
 
 ```{r  echo=FALSE, fig.align='center', out.width = '900px'}
