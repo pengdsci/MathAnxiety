@@ -592,7 +592,7 @@ gender.modality
 ---
 class: transition0 center middle
 
-# <font color = "gold"><b>Graphical Exploration: <br> Student Perceived Teaching Stragies</b></font>
+# <font color = "gold"><b>Graphical Exploration:<br> Student-Perceived Teaching Strategies</b></font>
 
 
 
@@ -1181,7 +1181,7 @@ include_graphics("img/RegSummary.png")
 ---
 class: transition0 center middle
 
-## <font color = "gold"><b>Modeling the Anxiety Ecosystem<br> A Struactural Equation Modeling Approach</b></font>
+## <font color = "gold"><b>Modeling the Anxiety Ecosystem<br> A Structural Equation Modeling (SEM) Approach</b></font>
 
 
 
@@ -1276,14 +1276,16 @@ include_graphics("img/Questions.png")
 ---
 class: transition0 center, middle
 
-# <font size = 12 color = "gold"><b>Thank You!</b></font>
+<!--/*# <font size = 12 color = "gold"><b>Thank You!</b></font>-->
 
-Slides created via the R packages through R Studio
+<img src = "img/1.gif" alt="Thank You!" width="200" height="200">
+
+Slides created using the following R packages in RStudio.
 
 [**xaringan**](https://github.com/yihui/xaringan)<br>
 [gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)
 
-&
+and
 
 [**Google NotebookLM**](https://notebooklm.google/)
 
