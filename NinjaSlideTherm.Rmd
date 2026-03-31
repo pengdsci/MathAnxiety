@@ -176,18 +176,17 @@ class:inverse1, top
     
 <table>
         <tr>
-            <td style="font-size: 24px;">
-            <li>Math Anxiety Epidemic and Anatomy of Math Anxiety</li>
-            <li>Study Design, Instruments, and Analyses</li>
-              <ul>
-                <li>Sampling and demographics</li>
-                <li>Instruments and Information Aggregation</li>
-              </ul>
-            <li>Graphical Analysis of Math Anxiety </li>
-            <li>Association between Anxiety and Relevant Factors </li>
-            <li>Modeling Math Anxiety Ecosystem</li>
-            <li>Potential Interventions </li>
-            
+            <td style="font-size: 30px;">
+            <li> Math Anxiety: Scope and Key Concepts</li>
+            <li> Study Design, Sampling and Methods</li>
+            <li> Some Demographics</li>
+            <li> Psychometric Measurements and Validation </li>
+            <li> Gender gap of Math Anxiety</li>
+            <li> Anxiety Distorts Perceived Teaching Styles</li>
+            <li> Exploratory Data Analysis of Anxiety</li>
+            <li> Key Association Analysis of Anxiety</li>
+            <li> Modeling the Math Anxiety Ecosystem - SEM</li>
+            <li> Intervention Strategies</li>
             </td>
         </tr>
 </table>
@@ -215,7 +214,7 @@ include_graphics("img/AnxietyEpidemic.png")
 ---
 class: inverse0 center middle
 
-```{r  echo=FALSE, fig.align='center', out.width = '900px'}
+```{r  echo=FALSE, fig.align='center', out.width = '1100px'}
 include_graphics("img/AnotomyAxniety.png")
 ```
 
@@ -231,11 +230,159 @@ class: transition0 center middle
 ---
 class: inverse00 center middle
 
-### Sampling, Instruments and Analysis 
+## Sampling, Instruments and Analysis 
 
 ```{r  echo=FALSE, fig.align='center', out.width = '900px'}
 include_graphics("img/SamplingMethodsAnalysis0.png")
 ```
+
+
+---
+class: inverse00 center top
+
+## Methods of Aggregating Likert Scales
+
+### Clasical Approaches
+
+<center>
+<table style="width:70%">
+        <tr>
+            <td style="font-size: 30px; text-align: left;">
+            <li> Summation</li>
+              <ul style="font-size: 20px; text-align: left;">
+                 <font color = "gold"><b>Disadvantage</b></font>: Equal importance assumed among multi-items
+              </ul>
+            <li> Average</li>
+              <ul style="font-size: 20px; text-align: left;">
+                 <font color = "gold"><b>Disadvantage</b></font>: Equal importance assumed among multi-items
+              </ul>
+            <li> Factor Analysis Scoring</li>
+            <ul style="font-size: 20px; text-align: left;">
+                 <font color = "gold"><b>Disadvantage</b></font>: Normal assumption the item scores
+              </ul>
+            <li> Principal Component Analysis Scoring </li>
+            <ul style="font-size: 20px; text-align: left;">
+                 <font color = "gold"><b>Disadvantage</b></font>: Loss of information
+              </ul>
+            </td>
+        </tr>
+</table>
+</center>   
+
+
+
+---
+class: inverse00 center top
+
+## Weighted Average of Directional PCAs 
+
+### Our Novel Approach: Double Weighted Average
+
+<center>
+<table style="width:80%">
+        <tr>
+            <td style="font-size: 26px; text-align: left;">
+            <font color = "Orange"><b>Step 1</b></font>: &nbsp;Reversing the scores of negative worded items<BR><br>
+            <font color = "Orange"><b>Step 2</b></font>: &nbsp;Summing/Averaging item scores<BR><br>
+            <font color = "Orange"><b>Step 3</b></font>: &nbsp;Performing PCA (linear or nonlinear)<BR><br>
+            <font color = "Orange"><b>Step 4</b></font>: &nbsp;Adjusting PCA sign for positive correlation with total scores<BR><br>
+            <font color = "Orange"><b>Step 5</b></font>: &nbsp;Taking weighted PCA average using variance proportions<BR>
+            </td>
+        </tr>
+</table>
+</center>   
+
+
+---
+class: inverse00 center top
+
+## Comparing Aggregation Methods: Math Anxiety Scores 
+
+
+```{r echo = FALSE}
+final.anxiety.dat <- na.omit(read.csv("https://pengdsci.github.io/MathAnxiety/completeAnxietyData.csv"))
+#final.anxiety.dat <- finalDat
+```
+
+```{r echo = FALSE}
+plotly.fun <- function(in.data){
+   in.avg <- density(in.data[,1])
+   in.pc1 <- density(in.data[,2])
+   in.pcw <- density(in.data[,3])
+   in.cfa <- density(in.data[, 4])
+   dat.name <- sub("\\..*", "",names(in.data)[1])  #sub( text)
+   # plot density curves
+  fig <- plot_ly(x = ~in.avg$x, y = ~in.avg$y, 
+               type = 'scatter', 
+               mode = 'lines', 
+               name = 'avg', 
+               fill = 'tozeroy')  %>% 
+           # adding more density curves
+       add_trace(x = ~in.pc1$x, y = ~in.pc1$y, 
+                 name = 'pca1', 
+                 fill = 'tozeroy')  %>% 
+       add_trace(x = ~in.pcw$x, y = ~in.pcw$y, 
+                 name = 'pca.wt', 
+                 fill = 'tozeroy')  %>% 
+       add_trace(x = ~in.cfa$x, y = ~in.cfa$y, 
+                 name = 'cfa', 
+                 fill = 'tozeroy')  %>% 
+       layout(#xaxis = list(title = 'Aggregated Scores'),
+              #yaxis = list(title = 'Density'),
+                 xaxis = list(title = "Aggregated Scores", 
+                              color = "white", 
+                           tickfont = list(color = 'white')),
+                 yaxis = list(title ="Density", 
+                              color = "white",
+                         gridcolor = 'lightgray',
+              tickfont = list(color = 'white')),
+              plot_bgcolor = '#291940',
+              paper_bgcolor = '#291940',
+              showlegend = FALSE,
+              #title = dat.name,
+               margin = list(
+                  t = 100,  # Adjust this value to increase or decrease the top margin
+                  b = 50,
+                  l = 50,
+                  r = 50)
+             )
+     fig
+     }
+####
+in.anxiety.mea = final.anxiety.dat[, c( "Anxiety.mea.avg", "Anxiety.mea.pca1", "Anxiety.mea.wt.pca","Anxiety.mea.cfa")]
+in.anxiety.mla = final.anxiety.dat[, c("Anxiety.mla.avg","Anxiety.mla.pca1", "Anxiety.mla.wt.pca","Anxiety.mla.cfa")]
+```
+
+```{r echo = FALSE, fig.align='center', fig.width=8, fig.height=6}
+p.mea <- plotly.fun(in.anxiety.mea)
+p.mla <- plotly.fun(in.anxiety.mla)
+# Arrange in 1x2 grid
+subplot(p.mea, p.mla, nrows = 1, titleX = TRUE, titleY = TRUE, margin = 0.1) %>%
+  layout(
+    annotations = list(
+      list(x = 0.25, 
+           y = 1.05, 
+           text = "Anxiety.mea", 
+           xref = "paper", 
+           yref = "paper", 
+           showarrow = FALSE, 
+           font = list(size = 14, color = "white")),
+      list(x = 0.95, 
+           y = 1.05, 
+           text = "Anxiety.mla", 
+           xref = "paper", 
+           yref = "paper", 
+           showarrow = FALSE, 
+           font = list(size = 14, color = "white"))
+    ),
+    showlegend = FALSE
+  )
+```
+
+
+
+
+
 
 
 ---
@@ -269,12 +416,12 @@ Demographic.bar <-function(in.cat, varname){
   '#CC79A7'   # Pink
   )
   fig <- plot_ly(df, x = ~category, y = ~values, type = 'bar',
-                hoverinfo = 'text',
+                #hoverinfo = 'text',
                 text = ~paste('Category:', category, 
                              '<br>Value:', values, 
                              '<br>Percentage:', round(values/sum(values)*100, 1), '%'),
                #text = ~paste("Value:", values), 
-               textposition = 'auto',
+               textposition = 'none',
                marker = list(
                  color = accessible_colors[1:nrow(df)],
                  line = list(color = 'white', width = 2)
@@ -593,6 +740,17 @@ gender.modality
 class: transition0 center middle
 
 ## <font color = "gold"><b>Graphical Exploration:<br> Student-Perceived Teaching Strategies</b></font>
+
+
+---
+class: inverse00 center top
+
+```{r  echo=FALSE, fig.align='center', out.width = '1100px'}
+include_graphics("img/TeachingSpectrum02.png")
+```
+
+
+
 
 
 
