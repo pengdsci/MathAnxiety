@@ -1,5 +1,5 @@
 ---
-title: '<img src="img/titlenew03.png" width = 1400 height = 600> <BR><BR><BR><BR>.'
+title: '<img src="img/titlenew04.png" width = 1400 height = 600> <BR><BR><BR><BR>.'
 #subtitle: '<img src="img/title.png" width=500 height=400>'
 #date: '<font size = 6 color = "white">This is a image holder</font><br> '
 #author: '<font size = 6 color = "white"><b>West Chester University of Pennsylvania</b></font><br> '
@@ -1092,7 +1092,7 @@ InterActiveTable <- function(indat){
 # Create table with complete styling
 datatable(indat,
           options = list(
-            pageLength = 11,
+            pageLength = 12,
             dom = 'Bfrtip',
             initComplete = JS(
               "function(settings, json) {",
@@ -1436,9 +1436,16 @@ class: transition0 center, middle
 
 <!--/*# <font size = 12 color = "gold"><b>Thank You!</b></font>-->
 
-<img src = "img/1.gif" alt="Thank You!" width="200" height="200">
+<table>
+<tr>
+<td> <img src = "img/blue-QR.png" alt="Thank You!" width="160" height="160"><br><font color = "gold" size = 3>Slides</font> </td>
+<td><img src = "img/1.gif" alt="Thank You!" width="200" height="200"><br>&nbsp; </td>
+<td><img src = "img/Report-QR.png" alt="Thank You!" width="160" height="160"><br><font color = "gold" size = 3> Report</font></td>
+</tr>
+</table>
 
-Slides created using the following R packages in RStudio.
+
+Slides created using the following R packages through RStudio.
 
 [**xaringan**](https://github.com/yihui/xaringan)<br>
 [gadenbuie/xaringanthemer](https://github.com/gadenbuie/xaringanthemer)
@@ -1446,6 +1453,16 @@ Slides created using the following R packages in RStudio.
 and
 
 [**Google NotebookLM**](https://notebooklm.google/)
+
+
+[**Silde Deck:** https://pengdsci.github.io/MathAnxiety/NinjaSlideTherm.html](https://pengdsci.github.io/MathAnxiety/NinjaSlideTherm.html)<br>
+[**Report:**  https://pengdsci.github.io/MathAnxiety/index4presentation.html](https://pengdsci.github.io/MathAnxiety/index4presentation.html)
+
+
+
+
+
+
 
 
 
