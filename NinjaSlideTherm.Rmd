@@ -203,12 +203,20 @@ class: transition0 center middle
 ---
 class: inverse00 center middle
 
-### Epidemic of Math Anxiety
+## Epidemic of Math Anxiety
 
-```{r  echo=FALSE, fig.align='center', out.width = '900px'}
-include_graphics("img/AnxietyEpidemic.png")
+```{r  echo=FALSE, fig.align='center', out.width = '800px'}
+include_graphics("img/AnxietyEpidemic01.png")
 ```
 
+
+
+---
+class: inverse00 center middle
+
+```{r  echo=FALSE, fig.align='center', out.width = '1400px'}
+include_graphics("img/MathAnxietyEcosystem.png")
+```
 
 
 ---
@@ -242,7 +250,7 @@ class: inverse00 center top
 
 ## Methods of Aggregating Likert Scales
 
-### Clasical Approaches
+### <font color = "orange">Classical Approaches</font>
 
 <center>
 <table style="width:70%">
@@ -276,17 +284,16 @@ class: inverse00 center top
 
 ## Weighted Average of Directional PCAs 
 
-### Our Novel Approach: Double Weighted Average
-
+### <font color = "Orange">Our Novel Approach: Double Weighted Average</font>
+<br>
 <center>
 <table style="width:80%">
         <tr>
             <td style="font-size: 26px; text-align: left;">
             <font color = "Orange"><b>Step 1</b></font>: &nbsp;Reversing the scores of negative worded items<BR><br>
-            <font color = "Orange"><b>Step 2</b></font>: &nbsp;Summing/Averaging item scores<BR><br>
-            <font color = "Orange"><b>Step 3</b></font>: &nbsp;Performing PCA (linear or nonlinear)<BR><br>
-            <font color = "Orange"><b>Step 4</b></font>: &nbsp;Adjusting PCA sign for positive correlation with total scores<BR><br>
-            <font color = "Orange"><b>Step 5</b></font>: &nbsp;Taking weighted PCA average using variance proportions<BR>
+            <font color = "Orange"><b>Step 2</b></font>: &nbsp;Performing PCA (linear or nonlinear)<BR><br>
+            <font color = "Orange"><b>Step 3</b></font>: &nbsp;Adjusting PCA sign for positive correlation with total scores<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(call this <font color = "orange"><b>directional PCA </font></b>)<br><br>
+            <font color = "Orange"><b>Step 4</b></font>: &nbsp;Taking weighted PCA average using variance proportions<BR>
             </td>
         </tr>
 </table>
@@ -1092,7 +1099,7 @@ InterActiveTable <- function(indat){
 # Create table with complete styling
 datatable(indat,
           options = list(
-            pageLength = 12,
+            pageLength = 11,
             dom = 'Bfrtip',
             initComplete = JS(
               "function(settings, json) {",
@@ -1141,14 +1148,14 @@ datatable(indat,
               "$('.dataTables_info').css({",
               "  'color': '#EFBF04',",
               "  'padding': '0px 0px',",
-              "  'font-size': '10px'",
+              "  'font-size': '8px'",
               "});",
               
 
                "$('.dataTables_paginate').css({",
               "  'margin-top': '0px',",
               "  'color': 'gold !important',",
-              "  'font-size': '10px'  /* Font size for the entire pagination container */",
+              "  'font-size': '8px'  /* Font size for the entire pagination container */",
               "});",
               
               "$('.paginate_button').css({",
@@ -1158,8 +1165,8 @@ datatable(indat,
               "  'border-radius': '1px !important',",
               "  'margin': '0 0px !important',",
               "  'padding': '0px 0px !important',  /* Increased padding for larger boxes */",
-              "  'font-size': '10px !important',    /* Font size for Previous/Next and page numbers */",
-              "  'min-width': '10px !important'     /* Minimum width for consistent box sizes */",
+              "  'font-size': '8px !important',    /* Font size for Previous/Next and page numbers */",
+              "  'min-width': '8px !important'     /* Minimum width for consistent box sizes */",
               "});",
               
               
@@ -1293,7 +1300,7 @@ class: inverse00 center top
 
 
 
-```{r echo = FALSE, fig.align='center', fig.width=7, fig.height=6}
+```{r echo = FALSE, fig.align='center', fig.width=7, fig.height=5}
 mla.lm.data.ctrd <- anxiety.reg.data[,-c(1, 11:17)]
 mla.full.ctrd <- lm(MLA ~., data = mla.lm.data.ctrd)
 ###
