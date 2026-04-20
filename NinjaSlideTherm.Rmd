@@ -241,7 +241,7 @@ class: inverse00 center middle
 ## Sampling, Instruments and Analysis 
 
 ```{r  echo=FALSE, fig.align='center', out.width = '900px'}
-include_graphics("img/SamplingMethodsAnalysis0.png")
+include_graphics("img/SamplingMethodsAnalysis.png")
 ```
 
 
