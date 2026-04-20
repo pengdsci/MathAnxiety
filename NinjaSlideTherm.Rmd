@@ -1397,7 +1397,7 @@ class: inverse00 center middle
 ### Six Insights Derived from the Data
 
 ```{r  echo=FALSE, fig.align='center', out.width = '900px'}
-include_graphics("img/SixInsightsSummary0.png")
+include_graphics("img/SixInsightsSummary.png")
 ```
 
 
