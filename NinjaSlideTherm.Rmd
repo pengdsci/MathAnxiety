@@ -1429,6 +1429,22 @@ class: inverse00 center middle
 ---
 class: transition0 center middle
 
+# <font size = 12 color = "gold"><b>Acknowledgments</b></font>
+
+<br>
+
+We would like to thank **Dr. Emily Miller** for reviewing the report and providing insightful comments and suggestions that will support the next stages of manuscript preparation.
+
+<br>
+
+We also thank our graduate students **Christina Thompson-Acquah** and **Chloe Winters** for their assistance in setting up the survey instruments in Qualtrics and processing the data, respectively.
+
+
+
+
+---
+class: transition0 center middle
+
 
 
 ```{r  echo=FALSE, fig.align='center', out.width = "60%"}
